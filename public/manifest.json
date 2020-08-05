@@ -2,12 +2,12 @@
     "name": "Crescent",
     "short_name": "Crescent",
     "icons": [{
-            "src": "img/android-chrome-192x192.png",
+            "src": "./img/icons/android-chrome-192x192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "img/apple-touch-icon.png",
+            "src": "./img/icons/apple-touch-icon.png",
             "sizes": "180x180",
             "type": "image/png"
         }
