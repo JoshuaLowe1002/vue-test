@@ -5,7 +5,18 @@ module.exports = {
         workboxOptions: {
             swSrc: 'src/service-worker.js'
         },
-        themeColor: '#FFF'
+        themeColor: '#2198F6',
+        icons: [{
+                "src": "./img/icons/android-chrome-192x192.png",
+                "sizes": "192x192",
+                "type": "image/png"
+            },
+            {
+                "src": "./img/icons/apple-touch-icon.png",
+                "sizes": "512x512",
+                "type": "image/png"
+            }
+        ],
     },
 
     // global scss variables

@@ -7,7 +7,11 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "ansi-regex": "^5.0.0",
+    "html-entities": "^1.3.1",
     "register-service-worker": "^1.6.2",
+    "strip-ansi": "^6.0.0",
+    "tailwindcss": "^1.6.2",
     "vue": "^2.6.6",
     "vue-quaggajs": "^1.0.12",
     "vue-router": "^3.0.1",

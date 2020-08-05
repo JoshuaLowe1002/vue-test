@@ -1,5 +1,5 @@
 {
-    "name": "Crescent",
+    "name": "Fulfilmentcrowd Crescent",
     "short_name": "Crescent",
     "icons": [{
             "src": "./img/icons/android-chrome-192x192.png",
@@ -8,7 +8,7 @@
         },
         {
             "src": "./img/icons/apple-touch-icon.png",
-            "sizes": "180x180",
+            "sizes": "512x512",
             "type": "image/png"
         }
     ],
