@@ -80,6 +80,10 @@ export default {
   mounted() {
     var storedOption = localStorage.getItem('option');
 
+    if (window.innerWidth < 600) {
+      document.getElementById("navbar").style.display = "";
+    }
+
     if (storedOption === "Camera"){
         this.camera = true;
         this.menu = false;
@@ -182,6 +186,6 @@ export default {
 }
 
 .barcodeView {
-  width: 675px;
+  width: 65%;
 }
 </style>

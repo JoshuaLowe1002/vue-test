@@ -23,6 +23,9 @@ export default {
     name: 'settings',
     mounted() {
         document.getElementById("text-field").value = localStorage.getItem("option");
+        if (window.innerWidth < 600) {
+            document.getElementById("navbar").style.display = "none";
+        }
     },
     methods: {
         deleteStorage() {
@@ -38,6 +41,16 @@ export default {
   padding-top: 4.5rem;
   margin-left: 255px;
   height: 70vh;
+}
+
+@media screen and (max-width: 600px) {
+  #settings {
+      margin-left: 0px;
+  }
+
+  #settings-left{
+    height: 250px !important;
+}
 }
 
 #settings-left{
