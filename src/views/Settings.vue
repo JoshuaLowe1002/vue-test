@@ -4,7 +4,7 @@
             <div class="Main p-6 bg-white shadow-md rounded-lg">
                 <span class="text-4xl font-extrabold">Settings</span>
             </div>
-            <div class="Left p-6 bg-white shadow-md rounded-lg">
+            <div class="Left p-6 bg-white shadow-md rounded-lg" id="settings-left">
                 <span class="text-2xl font-extrabold">Scanner Setting:</span>
                 <br>
                 <textarea readonly id="text-field" cols="1" rows="1"></textarea>
@@ -38,6 +38,10 @@ export default {
   padding-top: 4.5rem;
   margin-left: 255px;
   height: 70vh;
+}
+
+#settings-left{
+    height: 175px;
 }
 
 #text-field {

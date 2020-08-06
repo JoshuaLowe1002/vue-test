@@ -153,7 +153,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #scan {
   padding-top: 4.5rem;
   margin-left: 255px;
