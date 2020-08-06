@@ -32,7 +32,7 @@
 
       <div id="camera-scan" v-if="camera">
         <div class="Main p-6 m-5 bg-white shadow-md rounded-lg">
-            <span class="text-4xl font-extrabold">Camera Scanner</span>
+            <span class="text-4xl font-extrabold">Scanner</span>
         </div>
         <div class="barcodeView">
           <StreamBarcodeReader
