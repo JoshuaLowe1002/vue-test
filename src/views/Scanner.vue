@@ -31,6 +31,9 @@
       </div>
 
       <div id="camera-scan" v-if="camera">
+        <div class="Main p-6 m-5 bg-white shadow-md rounded-lg">
+            <span class="text-4xl font-extrabold">Camera Scanner</span>
+        </div>
         <div class="barcodeView">
           <StreamBarcodeReader
             @decode="onDecode"
@@ -177,6 +180,10 @@ export default {
   #scan {
       margin-left: 0px;
   }
+
+  .barcodeView {
+    width: 100% !important;
+  } 
 }
 
 #pressed_keys {
@@ -186,6 +193,6 @@ export default {
 }
 
 .barcodeView {
-  width: 65%;
+  width: 57%;
 }
 </style>
