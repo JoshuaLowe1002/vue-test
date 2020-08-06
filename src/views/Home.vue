@@ -26,4 +26,10 @@ export default {
 #home-container {
     padding: 15px;
 }
+
+@media screen and (max-width: 600px) {
+  #home {
+      margin-left: 0px;
+  }
+}
 </style>
