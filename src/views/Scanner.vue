@@ -8,7 +8,7 @@
         </div>
         <div class="Left bg-white shadow-md rounded-lg" id="option">
           <div class="bg-blue-500 h-40 w-40 p-12 rounded-full flex" id="large-icon">
-            <i class="fas fa-camera text-6xl text-white"></i>
+            <font-awesome-icon class="text-6xl text-white" icon="camera" />
           </div>
           <h1 class="text-3xl font-bold">Camera Scanner</h1>
           <p>Use your devices' camera to scan barcodes.</p>
@@ -18,7 +18,7 @@
         </div>
         <div class="Right bg-white shadow-md rounded-lg" id="option">
           <div class="bg-blue-500 h-40 w-40 p-12 rounded-full flex" id="large-icon">
-            <i class="fas fa-barcode text-6xl text-white"></i>
+            <font-awesome-icon class="text-6xl text-white" icon="barcode" />
           </div>
                     
           <h1 class="text-3xl font-bold">Hardware Scanner</h1>

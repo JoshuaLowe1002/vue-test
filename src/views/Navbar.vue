@@ -6,7 +6,7 @@
                 <span class="font-extrabold">Joshua Lowe</span> Fulfilment Provider
             </div>
             <div id="third">
-                <i id="arrow" class="far fa-arrow-alt-circle-down"></i>
+                <font-awesome-icon icon="arrow-alt-circle-right" />
             </div>
         </div>
 
