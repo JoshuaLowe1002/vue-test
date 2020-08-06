@@ -13,6 +13,11 @@
 
 export default {
     name: 'home',
+    mounted () {
+        if (window.innerWidth < 600) {
+            document.getElementById("navbar").style.display = "none";
+        }
+    }
 };
 </script>
 
