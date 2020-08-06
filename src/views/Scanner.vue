@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button @click="toggle()">Scan Barcode</button>
-    <v-quagga v-if="active" :readerSize="readerSize" :onDetected="read" :readerTypes="['ean_reader']"></v-quagga>
+    <button @click="toggle()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-5">Scan Barcode</button>
+    <v-quagga class="m-5" v-if="active" :readerSize="readerSize" :onDetected="read" :readerTypes="['ean_reader']"></v-quagga>
   </div>
 </template>
 
