@@ -7,10 +7,10 @@ import './scss/app.scss'
 import './assets/styles/index.css'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faArrowAltCircleRight, faCamera, faBarcode, faBars } from '@fortawesome/free-solid-svg-icons'
+import { faArrowAltCircleRight, faCamera, faBarcode, faBars, faCog, faHome } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faArrowAltCircleRight, faCamera, faBarcode, faBars);
+library.add(faArrowAltCircleRight, faCamera, faBarcode, faBars, faHome, faCog);
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false

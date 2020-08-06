@@ -17,7 +17,9 @@
         <div v-for="item in items" :key="item.message">
             <router-link :to="item.link"> 
             <div id="wrapper">
-                <div id="first" class="rounded-lg bg-cover bg-orange-500"></div>
+                <div id="first" class="rounded-lg bg-cover" :class="item.colour">
+                    <font-awesome-icon class="fs-25" :icon="item.icon" />
+                </div>
                 <div id="second" class="menuOptionTitle">
                     <span class="font-extrabold">{{ item.message }}</span>
                 </div>
@@ -35,10 +37,11 @@ export default {
   data() {
     return {
       msg: 'Post vue',
-    items: [
-      { message: 'Scan Barcode', link: 'scan'},
-      { message: 'Settings', link: 'settings'}
-    ]
+      items: [
+        { message: 'Home', link: '/', colour: "bg-orange-500", icon: "home"},
+        { message: 'Scan Barcode', link: 'scan', colour: "bg-blue-500", icon: "barcode"},
+        { message: 'Settings', link: 'settings', colour: "bg-red-500", icon: "cog"}
+      ]
     };
   }
 };
@@ -79,11 +82,17 @@ export default {
         #first {
             width: 45px;
             margin-right: 7px;
+            margin-right: 7px;
+            padding: 10px;
         }
         
         #second {
             width: 65%;
             margin-right: 7px;
+        }
+
+        .fs-25 {
+            font-size: 25px;
         }
 
         .menuOptionTitle{

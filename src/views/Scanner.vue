@@ -46,9 +46,10 @@
 
       <div id="hardware-scan" v-if="hardware">
         <h1 class="text-4xl mx-5 font-bold">Hardware Scanner</h1>
-        <br>
+        <button @click="clearHardware()" class="bg-red-500 mx-5 my-3 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Clear
+        </button>
         <h1 class="text-2xl mx-5 font-bold" id="pressed_keys"></h1>
-        <br>
       </div>
 
     </div>
@@ -97,6 +98,7 @@ export default {
         this.menu = false;
         this.hardwareScan();
     }
+
   },
   methods: {
       read(result) {
@@ -129,6 +131,11 @@ export default {
         this.menu = false;
         this.hardwareScan();
       },
+
+      clearHardware() {
+        const keypressoutput = document.getElementById('pressed_keys');
+        keypressoutput.innerHTML = "";
+      },
       
       hardwareScan() {
         document.addEventListener('keypress', keypressHandler);
@@ -151,7 +158,7 @@ export default {
             if (e.keyCode == 13)    //  Enter key from DataWedge
                 keypressoutput.innerHTML += "<BR>";
             else
-                alert(e.key);
+                keypressoutput.innerHTML += e.key;
         }
         function keyupHandler(e) { console.log('up: ' + e.keyCode); }
         function keydownHandler(e) { console.log('down: ' + e.keyCode); }

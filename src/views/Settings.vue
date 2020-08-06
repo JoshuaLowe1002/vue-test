@@ -30,7 +30,7 @@ export default {
     methods: {
         deleteStorage() {
             localStorage.removeItem("option");
-            document.getElementById("text-field").value = "none";
+            document.getElementById("text-field").value = "";
         }
     }
 };
