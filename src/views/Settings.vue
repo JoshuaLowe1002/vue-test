@@ -13,6 +13,12 @@
                     Delete Stored Option
                 </button>
             </div>
+
+            <div class="Right p-6 bg-white shadow-md rounded-lg" id="settings-left">
+                <span class="text-2xl font-extrabold">About:</span>
+                <br>
+                <span class="text-lg font-extrabold">Crescent - Built on Vue</span>
+            </div>
         </div>
     </div>
 </template>
