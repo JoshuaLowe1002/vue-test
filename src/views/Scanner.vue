@@ -31,10 +31,14 @@
       </div>
 
       <div id="camera-scan" v-if="camera">
-        <button @click="toggle()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-5">Load Camera...</button>
-        <br>
-        <textarea readonly class="mx-5" id="text-field" cols="1" rows="1"></textarea>
-        <v-quagga class="m-5" v-if="active" :readerSize="readerSize" :onDetected="read" :readerTypes="['ean_reader']"></v-quagga>
+        <div class="barcodeView">
+          <StreamBarcodeReader
+            @decode="onDecode"
+            @loaded="onLoaded"
+            class="m-5"
+          ></StreamBarcodeReader>
+        </div>
+        <!-- <v-quagga class="m-5" v-if="active" :readerSize="readerSize" :onDetected="read" :readerTypes="['ean_reader']"></v-quagga> -->
       </div>
 
       <div id="hardware-scan" v-if="hardware">
@@ -50,18 +54,20 @@
 
 <script>
 import Vue from 'vue'
-import VueQuagga from 'vue-quaggajs';
+//import VueQuagga from 'vue-quaggajs';
+import { StreamBarcodeReader } from "vue-barcode-reader";
 
 // register component 'v-quagga'
-Vue.use(VueQuagga);
-
+//Vue.use(VueQuagga);
 
 export default {
   name: 'VueBarcodeTest',
+  components: {StreamBarcodeReader},
   data () {
     return {
       active: false,
       camera: false,
+      result:"",
       hardware: false,
       menu: true,
       readerSize: {
@@ -91,6 +97,13 @@ export default {
         document.getElementById("text-field").value = result.codeResult.code;
         setTimeout(1000);
       },
+
+      onDecode(result){
+        this.result=result;
+        alert(this.result);
+        },
+      onLoaded(){console.log("Loaded")},
+
 
       toggle: function() {
         document.getElementById("text-field").value = "";
@@ -166,5 +179,9 @@ export default {
   resize: none;
   height: 30px;
   width: 140px;
+}
+
+.barcodeView {
+  width: 675px;
 }
 </style>
