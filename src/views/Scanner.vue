@@ -81,7 +81,7 @@ export default {
     var storedOption = localStorage.getItem('option');
 
     if (window.innerWidth < 600) {
-      document.getElementById("navbar").style.display = "";
+      document.getElementById("navbar").style.display = "none";
     }
 
     if (storedOption === "Camera"){
