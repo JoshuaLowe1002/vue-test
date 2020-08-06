@@ -1,5 +1,5 @@
 <template>
-    <div class="h-screen w-1/5 bg-blue-900 shadow-xl float-left p-2 text-white noselect">
+    <div class="h-full w-64 z-40 fixed bg-blue-900 shadow-xl float-left p-2 text-white noselect" id="navbar">
         <div id="profile" class="highlight" onclick="highlightBox('profile')">
             <div id="first" class="rounded-lg bg-cover" style="background-image: url('https://avatars3.githubusercontent.com/u/25752941?s=460&u=131730e97ddb996d629a0c9a2a69d73a1254d8f9&v=4');"></div>
             <div id="second">
@@ -9,6 +9,24 @@
                 <i id="arrow" class="far fa-arrow-alt-circle-down"></i>
             </div>
         </div>
+
+        <div id="title" class="font-bold">
+            Menu:
+        </div>
+
+        <div v-for="item in items" :key="item.message">
+            <router-link :to="item.link"> 
+            <div id="wrapper">
+                <div id="first" class="rounded-lg bg-cover bg-orange-500"></div>
+                <div id="second" class="menuOptionTitle">
+                    <span class="font-extrabold">{{ item.message }}</span>
+                </div>
+                    <div id="third">
+                </div>
+            </div>
+            </router-link>
+        </div>
+
     </div>
 </template>
 
@@ -16,7 +34,11 @@
 export default {
   data() {
     return {
-      msg: 'Post vue'
+      msg: 'Post vue',
+    items: [
+      { message: 'Scan Barcode', link: 'scan'},
+      { message: 'Settings', link: 'settings'}
+    ]
     };
   }
 };
@@ -62,6 +84,10 @@ export default {
         #second {
             width: 65%;
             margin-right: 7px;
+        }
+
+        .menuOptionTitle{
+            padding-top: 11px;
         }
         
         #third {
@@ -109,11 +135,11 @@ export default {
         .grid-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            grid-template-rows: 5fr 5fr;
+            grid-template-rows: 1fr 5fr;
             gap: 10px 10px;
             grid-template-areas: "Main Main" "Left Right";
-            width: 80%;
-            height: 91%;
+            width: 100%;
+            height: 100%;
             padding: 15px;
         }
         
@@ -127,5 +153,11 @@ export default {
         
         .Right {
             grid-area: Right;
+        }
+
+        @media screen and (max-width: 600px) {
+            #navbar {
+                display: none;
+            }
         }
 </style>
