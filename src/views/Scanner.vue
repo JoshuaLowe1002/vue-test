@@ -31,14 +31,14 @@
       </div>
 
       <div id="camera-scan" v-if="camera">
-        <div class="Main p-6 m-5 bg-white shadow-md rounded-lg">
+        <div class="Main p-6 bg-white shadow-md rounded-lg">
             <span class="text-4xl font-extrabold">Scanner</span>
         </div>
         <div class="barcodeView">
           <StreamBarcodeReader
             @decode="onDecode"
             @loaded="onLoaded"
-            class="m-5"
+            class="my-5"
           ></StreamBarcodeReader>
         </div>
         <!-- <v-quagga class="m-5" v-if="active" :readerSize="readerSize" :onDetected="read" :readerTypes="['ean_reader']"></v-quagga> -->
@@ -151,7 +151,7 @@ export default {
             if (e.keyCode == 13)    //  Enter key from DataWedge
                 keypressoutput.innerHTML += "<BR>";
             else
-                keypressoutput.innerHTML += e.key;
+                alert(e.key);
         }
         function keyupHandler(e) { console.log('up: ' + e.keyCode); }
         function keydownHandler(e) { console.log('down: ' + e.keyCode); }
@@ -174,6 +174,10 @@ export default {
     border-radius: 20px;
     padding: 20px;
     width: 100%;
+}
+
+#camera-scan {
+  padding: 15px;
 }
 
 @media screen and (max-width: 600px) {
