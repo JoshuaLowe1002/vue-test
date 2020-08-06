@@ -22,7 +22,7 @@
           </div>
                     
           <h1 class="text-3xl font-bold">Hardware Scanner</h1>
-          <p>For hardware scanners...</p>
+          <p>Use a handheld hardware scanner to scan multiple barcodes.</p>
           <button @click="selectHardware()" class="bg-blue-500 mt-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Select
           </button>
@@ -195,6 +195,18 @@ export default {
   .barcodeView {
     width: 100% !important;
   } 
+
+  .w-40 {
+    width: 7rem;
+  }
+
+  .h-40 {
+    height: 7rem;
+  }
+
+  .p-12 {
+    padding: 1.5rem;
+  }
 }
 
 #pressed_keys {
