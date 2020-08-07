@@ -29,6 +29,7 @@ export default {
     name: 'settings',
     mounted() {
         document.getElementById("text-field").value = localStorage.getItem("option");
+        document.getElementById("navclose").style.display = "none";
         if (window.innerWidth < 600) {
             document.getElementById("navbar").style.display = "none";
         }

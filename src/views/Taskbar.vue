@@ -19,6 +19,7 @@ export default {
   methods: {
     showNav() {
       document.getElementById("navbar").style.display = "block";
+      document.getElementById("navclose").style.display = "block";
     }
   }
 };

@@ -14,6 +14,8 @@
 export default {
     name: 'home',
     mounted () {
+        document.getElementById("navclose").style.display = "none";
+        
         if (window.innerWidth < 600) {
             document.getElementById("navbar").style.display = "none";
         }

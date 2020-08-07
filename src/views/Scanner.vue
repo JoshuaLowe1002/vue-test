@@ -83,6 +83,7 @@ export default {
   },
   mounted() {
     var storedOption = localStorage.getItem('option');
+    document.getElementById("navclose").style.display = "none";
 
     if (window.innerWidth < 600) {
       document.getElementById("navbar").style.display = "none";
