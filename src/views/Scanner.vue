@@ -96,6 +96,7 @@ export default {
     if (storedOption === "Hardware"){
         this.hardware = true;
         this.menu = false;
+        this.hardwareScan();
     }
 
   },
@@ -137,6 +138,10 @@ export default {
       },
       
       hardwareScan() {
+        document.removeEventListener('keypress', keypressHandler);
+        document.removeEventListener('keyup', keyupHandler);
+        document.removeEventListener('keydown', keydownHandler);
+
         document.addEventListener('keypress', keypressHandler);
         document.addEventListener('keyup', keyupHandler);
         document.addEventListener('keydown', keydownHandler);
