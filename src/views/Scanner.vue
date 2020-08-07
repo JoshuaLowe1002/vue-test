@@ -96,7 +96,6 @@ export default {
     if (storedOption === "Hardware"){
         this.hardware = true;
         this.menu = false;
-        this.hardwareScan();
     }
 
   },
