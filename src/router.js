@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Scanner from './views/Scanner.vue'
 import Home from './views/Home.vue'
 import Settings from './views/Settings.vue'
+import Products from './views/Products.vue'
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ export default new Router({
             path: '/settings',
             name: 'settings',
             component: Settings
+        },
+        {
+            path: '/products',
+            name: 'products',
+            component: Products
         }
         // {
         //   path: '/about',

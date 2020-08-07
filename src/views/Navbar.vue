@@ -39,6 +39,7 @@ export default {
       msg: 'Post vue',
       items: [
         { message: 'Home', link: '/', colour: "bg-orange-500", icon: "home"},
+        { message: 'Products', link: 'products', colour: "bg-green-500", icon: "shopping-cart"},
         { message: 'Scan Barcode', link: 'scan', colour: "bg-blue-500", icon: "barcode"},
         { message: 'Settings', link: 'settings', colour: "bg-red-500", icon: "cog"}
       ]
