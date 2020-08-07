@@ -10,12 +10,12 @@ Vue.use(VueApollo)
 const AUTH_TOKEN = 'apollo-token'
 
 // Http endpoint
-const httpEndpoint = process.env.VUE_APP_GRAPHQL_HTTP || 'https://crescent-test-store.myshopify.com/admin/api/2020-07/graphql.json'
+const httpEndpoint = process.env.VUE_APP_GRAPHQL_HTTP || 'https://crescent-test-store.myshopify.com/api/2020-07/graphql.json'
 
 const httpLink = new HttpLink({
     uri: httpEndpoint,
     headers: {
-        'X-Shopify-Access-Token': "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"
+        'X-Shopify-Storefront-Access-Token': "f659936e83e47453a4f66d24158a0382"
     }
 })
 
