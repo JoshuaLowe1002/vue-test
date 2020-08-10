@@ -4,13 +4,13 @@ import "firebase/firestore";
 
 
 var firebaseConfig = {
-    apiKey: process.env.VUE_APP_TITLE,
-    authDomain: process.env.VUE_APP_AUTH_DOMAIN,
-    databaseURL: process.env.VUE_APP_DATABASE_URL,
-    projectId: process.env.VUE_APP_PROJECT_ID,
-    storageBucket: process.env.VUE_APP_STORAGE_BUCKET,
-    messagingSenderId: process.env.VUE_APP_SENDER_ID,
-    appId: process.env.VUE_APP_APP_ID
+    apiKey: "AIzaSyACDTMA2P1h1jkzsXbb1R1PtQMg96eqZ0Y",
+    authDomain: "crescent-a0c27.firebaseapp.com",
+    databaseURL: "https://crescent-a0c27.firebaseio.com",
+    projectId: "crescent-a0c27",
+    storageBucket: "crescent-a0c27.appspot.com",
+    messagingSenderId: "33181035689",
+    appId: "1:33181035689:web:efd73ed3ad5cb8f9d70db8"
 };
 
 firebase.initializeApp(firebaseConfig);

@@ -20,7 +20,6 @@ export default {
     },
     mounted() {
         this.authAction();
-        console.log(process.env.VUE_APP_TITLE);
     },
     methods: {
         hideNav() {
