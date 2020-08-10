@@ -15,15 +15,23 @@
             </div>
 
             <div class="Right p-6 bg-white shadow-md rounded-lg" id="settings-left">
-                <span class="text-2xl font-extrabold">About:</span>
+                <span class="text-2xl font-extrabold">User Information:</span>
                 <br>
-                <span class="text-lg font-extrabold">Crescent v0.1 - Built on Vue</span>
+                <span class="text-lg font-extrabold">Name: {{ getUser.displayName }}</span>
+                <br>
+                <span class="text-lg font-extrabold">Email: {{ getUser.email }}</span>
+                <br>
+                <button class="bg-red-500 mt-2 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" @click="signOut()">
+                    Logout
+                </button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex';
+
 
 export default {
     name: 'settings',
@@ -33,12 +41,20 @@ export default {
         if (window.innerWidth < 600) {
             document.getElementById("navbar").style.display = "none";
         }
+        
     },
     methods: {
+        ...mapActions(["signOutAction"]),
         deleteStorage() {
             localStorage.removeItem("option");
             document.getElementById("text-field").value = "";
+        },
+        signOut() {
+            this.signOutAction();
         }
+    },
+    computed: {
+        ...mapGetters(['getUser', 'isUserAuth'])
     }
 };
 </script>

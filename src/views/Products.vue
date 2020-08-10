@@ -23,7 +23,7 @@
                     <td class="border px-4 py-2">{{product.node.title}}</td>
                     <td class="border px-4 py-2">{{product.node.totalInventory}}</td>
                     <td class="border px-4 py-2">{{product.node.productType}}</td>
-                    <td class="border px-4 py-2 text-center"><button src="" class="bg-blue-700 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">View Product</button></td>
+                    <td class="border px-4 py-2 text-center"><button class="bg-blue-700 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">View Product</button></td>
                 </tr> 
             </tbody>
             </table>

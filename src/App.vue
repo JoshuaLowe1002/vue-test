@@ -10,6 +10,7 @@
 <script>
 import Navbar from './views/Navbar.vue';
 import Taskbar from './views/Taskbar.vue';
+import {mapActions} from 'vuex';
 
 export default {
     name: 'app',
@@ -17,11 +18,16 @@ export default {
         Navbar,
         Taskbar
     },
+    mounted() {
+        this.authAction();
+        console.log(process.env.VUE_APP_TITLE);
+    },
     methods: {
         hideNav() {
             document.getElementById("navbar").style.display = "none";
             document.getElementById("navclose").style.display = "none";
-        }
+        },
+        ...mapActions(["authAction"])
     }
 };
 </script>

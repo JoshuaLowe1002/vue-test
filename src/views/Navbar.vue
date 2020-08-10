@@ -10,13 +10,43 @@
             </div>
         </div>
 
-        <div id="title" class="font-bold">
+        <div id="title" class="font-bold" v-if="isUserAuth">
             Menu:
+        </div>
+
+        <div>
+            <router-link to="login"> 
+            <div id="wrapper" v-if="!isUserAuth">
+                <div id="first" class="rounded-lg bg-cover bg-purple-500">
+                    <font-awesome-icon class="fs-25" icon="cog" />
+                </div>
+                <div id="second" class="menuOptionTitle">
+                    <span class="font-extrabold">Login</span>
+                </div>
+                    <div id="third">
+                </div>
+            </div>
+            </router-link>
+        </div>
+
+        <div>
+            <router-link to="register"> 
+            <div id="wrapper" v-if="!isUserAuth">
+                <div id="first" class="rounded-lg bg-cover bg-pink-500">
+                    <font-awesome-icon class="fs-25" icon="cog" />
+                </div>
+                <div id="second" class="menuOptionTitle">
+                    <span class="font-extrabold">Register</span>
+                </div>
+                    <div id="third">
+                </div>
+            </div>
+            </router-link>
         </div>
 
         <div v-for="item in items" :key="item.message">
             <router-link :to="item.link"> 
-            <div id="wrapper">
+            <div id="wrapper" v-if="isUserAuth">
                 <div id="first" class="rounded-lg bg-cover" :class="item.colour">
                     <font-awesome-icon class="fs-25" :icon="item.icon" />
                 </div>
@@ -33,6 +63,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   data() {
     return {
@@ -44,7 +76,10 @@ export default {
         { message: 'Settings', link: 'settings', colour: "bg-red-500", icon: "cog"}
       ]
     };
-  }
+  },
+  computed: {
+    ...mapGetters(["isUserAuth"])
+  },
 };
 </script>
 
