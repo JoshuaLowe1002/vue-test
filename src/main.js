@@ -6,7 +6,8 @@ import './registerServiceWorker'
 import './scss/app.scss'
 import './assets/styles/index.css'
 
-import './firebase'
+import { auth } from './firebase'
+
 import VueFirestore from 'vue-firestore';
 
 Vue.use(VueFirestore);
@@ -21,9 +22,15 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
 
-new Vue({
-    router,
-    store,
-    apolloProvider: createProvider(),
-    render: h => h(App)
-}).$mount('#app')
+let app
+
+auth.onAuthStateChanged(() => {
+    if (!app) {
+        app = new Vue({
+            router,
+            store,
+            apolloProvider: createProvider(),
+            render: h => h(App)
+        }).$mount('#app')
+    }
+})
