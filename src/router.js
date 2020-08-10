@@ -16,7 +16,7 @@ const routes = [{
         name: 'home',
         component: Home,
         meta: {
-            requiresAuth: true
+            authRequred: true
         }
     },
     {
@@ -24,7 +24,7 @@ const routes = [{
         name: 'scan',
         component: Scanner,
         meta: {
-            requiresAuth: true
+            authRequred: true
         }
     },
     {
@@ -32,7 +32,7 @@ const routes = [{
         name: 'settings',
         component: Settings,
         meta: {
-            requiresAuth: true
+            authRequred: true
         }
     },
     {
@@ -40,7 +40,7 @@ const routes = [{
         name: 'products',
         component: Products,
         meta: {
-            requiresAuth: true
+            authRequred: true
         }
     },
     {
@@ -67,7 +67,7 @@ router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.authRequred)) {
         if (!store.state.user) {
             next({
-                path: '/signin',
+                path: '/login',
                 query: { redirect: to.fullPath }
             })
         } else {
