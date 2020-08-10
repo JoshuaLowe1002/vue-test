@@ -6,7 +6,8 @@ import Settings from './views/Settings.vue'
 import Products from './views/Products.vue'
 import Login from './components/Login.vue'
 import Register from './components/Register.vue'
-import { auth } from './firebase'
+import firebase from "firebase/app";
+import "firebase/auth";
 
 
 Vue.use(VueRouter)
@@ -16,7 +17,7 @@ const routes = [{
         name: 'home',
         component: Home,
         meta: {
-            authRequred: true
+            requiresAuth: true
         }
     },
     {
@@ -24,7 +25,7 @@ const routes = [{
         name: 'scan',
         component: Scanner,
         meta: {
-            authRequred: true
+            requiresAuth: true
         }
     },
     {
@@ -32,7 +33,7 @@ const routes = [{
         name: 'settings',
         component: Settings,
         meta: {
-            authRequred: true
+            requiresAuth: true
         }
     },
     {
@@ -40,7 +41,7 @@ const routes = [{
         name: 'products',
         component: Products,
         meta: {
-            authRequred: true
+            requiresAuth: true
         }
     },
     {
@@ -64,18 +65,12 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.authRequred)) {
-        if (!store.state.user) {
-            next({
-                path: '/login',
-                query: { redirect: to.fullPath }
-            })
-        } else {
-            next()
-        }
-    } else {
-        next()
-    }
-})
+    const currentUser = firebase.auth().currentUser;
+    const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+    if (requiresAuth && !currentUser) next('login');
+    else if (!requiresAuth && currentUser) next('home');
+    else next();
+});
 
 export default router
