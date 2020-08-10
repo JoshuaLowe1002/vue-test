@@ -1,4 +1,5 @@
 import firebase from "firebase/app";
+import router from "../router";
 
 var db = firebase.firestore;
 
@@ -39,6 +40,8 @@ const actions = {
             .signOut()
             .then(() => {
                 commit("setUser", null);
+                router.push({ name: "Login" });
+
             })
             .catch(error => {
                 commit("setError", error.message);
