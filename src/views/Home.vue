@@ -2,9 +2,9 @@
     <div id="home">
         <div id="home-container">
             <div class="Main p-6 bg-white shadow-md rounded-lg">
-                <span class="text-4xl font-extrabold">Welcome to </span><span class="text-4xl">Crescent</span>
+                <span class="text-4xl font-extrabold">{{ $t("message.welcome") }} </span><span class="text-4xl">{{ $t("message.crescent") }}</span>
             </div>
-            <h1 class="text-3xl my-5 text-center font-semibold">Please select an option to continue</h1>
+            <h1 class="text-3xl my-5 text-center font-semibold">{{ $t("message.hello") }}</h1>
         </div>
     </div>
 </template>

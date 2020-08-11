@@ -43,5 +43,8 @@ export default {
         left: 0; 
         position: fixed; 
     }
+    .navbar-col {
+        background-color: #202D5B;
+    }
 </style>
  

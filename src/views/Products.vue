@@ -1,29 +1,42 @@
 <template>
     <div id="products">
         <div id="products-container">
-            <div class="Main p-6 bg-white shadow-md rounded-lg">
-                <span class="text-4xl font-extrabold">Products</span>
+            <span class="text-3xl font-bold">{{ $t("message.products") }}</span>
+
+            <button @click="refresh()" class="blue-button shadow-md hover:bg-red-500 text-white font-bold py-2 px-8 rounded float-right">
+                    New
+            </button>
+
+            <div class="relative mx-auto text-black my-5">
+                <input class="h-10 px-5 rounded-lg text-sm focus:outline-none s-width"
+                type="search" name="search" placeholder="Search" id="productSearch" v-on:keyup="myFunction()">
             </div>
-            <div class="Main my-5 bg-white shadow-md rounded-lg">
-                <button @click="refresh()" class="bg-red-500 mx-5 my-3 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Refresh
-                </button>
-            </div>
-            <table class="table-fixed w-full rounded-lg bg-white my-5">
+
+
+            <table class="table-fixed w-full rounded-lg bg-white my-5 border-collapse shadow-lg my-12" border="0" id="productTable">
             <thead>
-                <tr class="bg-blue-900 rounded-t-lg text-white">
-                    <th class="w-1/4 px-4 py-2">Product Name</th>
-                    <th class="w-1/4 px-4 py-2">Stock Level</th>
-                    <th class="w-1/4 px-4 py-2">Category</th>
-                    <th class="w-1/4 px-4 py-2">View</th>
+                <tr class="rounded-t-lg text-black text-left header">
+                    <th class="w-12 px-6 py-6"><input type="checkbox"></th>
+                    <th class="w-1/4 px-4 py-2">{{ $t("message.productname") }}</th>
+                    <th class="w-1/4 px-4 py-2">{{ $t("message.stock") }}</th>
+                    <th class="w-1/4 px-4 py-2">{{ $t("message.category") }}</th>
+                    <th class="w-1/4 px-4 py-2">Price</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr v-for="product in products.edges" :key="product.node.id">
-                    <td class="border px-4 py-2">{{product.node.title}}</td>
-                    <td class="border px-4 py-2">{{product.node.totalInventory}}</td>
-                    <td class="border px-4 py-2">{{product.node.productType}}</td>
-                    <td class="border px-4 py-2 text-center"><button class="bg-blue-700 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">View Product</button></td>
+            <tbody class="rounded-b-lg">
+                <tr class="border" v-if="$apollo.loading">
+                    <td class="px-4 py-2"></td>
+                    <td class="px-4 py-2">Loading...</td>
+                    <td class="px-4 py-2">Loading...</td>
+                    <td class="px-4 py-2">Loading...</td>
+                    <td class="px-4 py-2">Loading...</td>
+                </tr>
+                <tr v-for="product in products.edges" class="border" :key="product.node.id">
+                    <td class="px-4 py-4"><input type="checkbox"></td>
+                    <td class="px-4 py-2">{{product.node.title}}</td>
+                    <td class="px-4 py-2">{{product.node.totalInventory}}</td>
+                    <td class="px-4 py-2">{{product.node.productType}}</td>
+                    <td class="px-4 py-2">£{{product.node.priceRange.maxVariantPrice.amount}}</td>
                 </tr> 
             </tbody>
             </table>
@@ -38,7 +51,8 @@ export default {
     name: 'products',
     data () {
         return {
-            products: []
+            products: [],
+            search: ''
         }
     },
     apollo: {
@@ -50,7 +64,11 @@ export default {
                         title
                         totalInventory
                         productType
-                        onlineStoreUrl
+                        priceRange{
+                            maxVariantPrice {
+                                amount
+                            }
+                        }
                     }
                 }
             }
@@ -59,6 +77,18 @@ export default {
     methods: {
         refresh() {
             location.reload();
+        },
+        myFunction() {
+            const filter = document.querySelector('#productSearch').value.toUpperCase();
+            const trs = document.querySelectorAll('#productTable tr:not(.header)');
+            trs.forEach(tr => tr.style.display = [...tr.children].find(td => td.innerHTML.toUpperCase().includes(filter)) ? '' : 'none');
+        }
+    },
+    computed: {
+        filteredList() {
+            return this.products.filter(product => {
+                return product.edges.node.title.toLowerCase().includes(this.search.toLowerCase())
+            })
         }
     },
     mounted () {
@@ -78,9 +108,14 @@ export default {
   height: 70vh;
 }
 
-#products-container {
-    padding: 15px;
+.blue-button {
+    background-color: #0077FF;
 }
+
+#products-container {
+    padding: 25px;
+}
+
 
 @media screen and (max-width: 600px) {
   #products {

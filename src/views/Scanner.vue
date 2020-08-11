@@ -4,16 +4,16 @@
     <div id="scan">
       <div class="grid-container" v-if="menu">
         <div class="Main p-6 bg-white shadow-md rounded-lg">
-            <span class="text-4xl font-extrabold">Please choose a scanning option</span>
+            <span class="text-4xl font-extrabold">{{ $t("message.scanmessage") }}</span>
         </div>
         <div class="Left bg-white shadow-md rounded-lg" id="option">
           <div class="bg-blue-500 h-40 w-40 p-12 rounded-full flex" id="large-icon">
             <font-awesome-icon class="text-6xl text-white" icon="camera" />
           </div>
-          <h1 class="text-3xl font-bold">Camera Scanner</h1>
-          <p>Use your devices' camera to scan barcodes.</p>
+          <h1 class="text-3xl font-bold">{{ $t("message.camera") }}</h1>
+          <p>{{ $t("message.cameramessage") }}</p>
           <button @click="selectCamera()" class="bg-blue-500 mt-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Select
+            {{ $t("message.select") }}
           </button>
         </div>
         <div class="Right bg-white shadow-md rounded-lg" id="option">
@@ -21,10 +21,10 @@
             <font-awesome-icon class="text-6xl text-white" icon="barcode" />
           </div>
                     
-          <h1 class="text-3xl font-bold">Hardware Scanner</h1>
-          <p>Use a handheld hardware scanner to scan multiple barcodes.</p>
+          <h1 class="text-3xl font-bold">{{ $t("message.hardware") }}</h1>
+          <p>{{ $t("message.hardwaremessage") }}</p>
           <button @click="selectHardware()" class="bg-blue-500 mt-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Select
+            {{ $t("message.select") }}
           </button>
 
         </div>
@@ -32,7 +32,7 @@
 
       <div id="camera-scan" v-if="camera">
         <div class="Main p-6 bg-white shadow-md rounded-lg">
-            <span class="text-4xl font-extrabold">Scanner</span>
+            <span class="text-4xl font-extrabold">{{ $t("message.camera") }}</span>
         </div>
         <div class="barcodeView">
           <StreamBarcodeReader
@@ -45,9 +45,9 @@
       </div>
 
       <div id="hardware-scan" v-if="hardware">
-        <h1 class="text-4xl mx-5 font-bold">Hardware Scanner</h1>
+        <h1 class="text-4xl mx-5 font-bold">{{ $t("message.hardware") }}</h1>
         <button @click="clearHardware()" class="bg-red-500 mx-5 my-3 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Clear
+            {{ $t("message.clear") }}
         </button>
         <h1 class="text-2xl mx-5 font-bold" id="pressed_keys"></h1>
       </div>

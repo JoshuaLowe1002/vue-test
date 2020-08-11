@@ -1,18 +1,15 @@
 <template>
-    <div class="h-full w-64 z-40 fixed bg-blue-900 shadow-xl float-left p-2 text-white noselect" id="navbar">
-        <div id="profile" class="highlight" onclick="highlightBox('profile')">
-            <div id="first" class="rounded-lg bg-cover" style="background-image: url('https://avatars3.githubusercontent.com/u/25752941?s=460&u=131730e97ddb996d629a0c9a2a69d73a1254d8f9&v=4');"></div>
+    <div class="h-full w-64 z-40 fixed navbar-col shadow-xl float-left p-2 text-white noselect" id="navbar">
+        <div id="profile" onclick="highlightBox('profile')">
+            <div id="first" class="rounded-lg bg-cover" style="background-image: url('https://avatars1.githubusercontent.com/u/24291894?s=280&v=4');"></div>
             <div id="second">
-                <span class="font-extrabold">Joshua Lowe</span> Fulfilment Provider
+                <span class="font-bold text-lg">Bobs Ramen</span>
             </div>
             <div id="third">
-                <font-awesome-icon icon="arrow-alt-circle-right" />
             </div>
         </div>
 
-        <div id="title" class="font-bold" v-if="isUserAuth">
-            Menu:
-        </div>
+        <div id="title" class="font-bold" v-if="isUserAuth"> </div>
 
         <div>
             <router-link to="login"> 
@@ -46,34 +43,40 @@
 
         <div v-for="item in items" :key="item.message">
             <router-link :to="item.link"> 
-            <div id="wrapper" v-if="isUserAuth">
+            <div id="wrapper" :class="item.class" class="inactive" v-if="isUserAuth">
                 <div id="first" class="rounded-lg bg-cover" :class="item.colour">
                     <font-awesome-icon class="fs-25" :icon="item.icon" />
                 </div>
                 <div id="second" class="menuOptionTitle">
-                    <span class="font-extrabold">{{ item.message }}</span>
+                    <span class="font-bold">{{ $t("message." + item.message) }}</span>
                 </div>
                     <div id="third">
                 </div>
             </div>
             </router-link>
         </div>
-
     </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import Language from '../components/Language';
+
 
 export default {
+  name: 'Navbar',
+  components: {
+      Language
+  },
   data() {
     return {
       msg: 'Post vue',
       items: [
-        { message: 'Home', link: '/', colour: "bg-orange-500", icon: "home"},
-        { message: 'Products', link: 'products', colour: "bg-green-500", icon: "shopping-cart"},
-        { message: 'Scan Barcode', link: 'scan', colour: "bg-blue-500", icon: "barcode"},
-        { message: 'Settings', link: 'settings', colour: "bg-red-500", icon: "cog"}
+        { message: 'home', link: '/', colour: "", icon: "chart-line", class:"active"},
+        { message: 'orders', link: '/', colour: "", icon: "receipt"},
+        { message: 'products', link: 'products', colour: "", icon: "box"},
+        { message: 'picking', link: 'scan', colour: "", icon: "dolly-flatbed"},
+        { message: 'settings', link: 'settings', colour: "", icon: "cog"}
       ]
     };
   },
@@ -84,6 +87,10 @@ export default {
 </script>
 
 <style>
+        .fc-blue {
+            background-color: #0077FF;
+        }
+        
         #profile {
             display: flex;
             height: 50px;
@@ -107,12 +114,11 @@ export default {
         }
         
         #title {
-            margin-left: 1px;
-            margin-right: 1px;
-            margin-bottom: 10px;
-            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-top: 5px;
+            border-top:rgba(0, 0, 0, 0.15) solid 1px;
             padding: 2px;
-            border-radius: 10px;
+            width: 100%;
         }
         
         #first {
@@ -121,10 +127,19 @@ export default {
             margin-right: 7px;
             padding: 10px;
         }
+
+        .inactive {
+            color: #A6ABBD;
+        }
+
+        .active {
+            color: white;
+        }
         
         #second {
             width: 65%;
             margin-right: 7px;
+            padding-top: 9px;
         }
 
         .fs-25 {
@@ -170,8 +185,11 @@ export default {
         }
         
         body {
-            background-color: #e3eef8;
+            background-color: #F1F4F8;
         }
+
+        
+
         
         .fa-arrow-alt-circle-right:before {
             content: "\f35a" !important;
