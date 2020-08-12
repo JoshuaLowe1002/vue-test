@@ -40,7 +40,7 @@
             <input v-model="email" autocomplete="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" placeholder="Email">
             </div>
 
-            <button @click.prevent="validate('email'); next();" class="button is-success blue-button shadow-lg  text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline" type="button">
+            <button @click.prevent="validate('email'); next();" style="width: 257px;" class="button is-success blue-button shadow-lg  text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline" type="button">
                 Continue
             </button>
         </div>
@@ -60,7 +60,7 @@
             <input v-model="phone" autocomplete="phone" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" type="text" placeholder="Phone Number">
             </div>
 
-            <button @click.prevent="validate('company'); next();" class="button is-success blue-button shadow-lg mr-3 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline" type="button">
+            <button @click.prevent="validate('company'); next();" style="width: 257px;" class="button is-success blue-button shadow-lg mr-3 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline" type="button">
                 Continue
             </button>
 
@@ -84,7 +84,7 @@
             <input v-model="passwordRepeat" autocomplete="new-password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="repeat-password" type="password" placeholder="Password">
             </div>
 
-            <button @click.prevent="validate('pass');" class="button is-success bg-green-500 mr-3 shadow-lg  text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline" type="button">
+            <button @click.prevent="validate('pass');" style="width: 257px;" class="button is-success bg-green-500 mr-3 shadow-lg  text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline" type="button">
                 Register
             </button>
 
