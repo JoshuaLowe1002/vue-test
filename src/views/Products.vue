@@ -4,7 +4,7 @@
             <span class="text-3xl font-bold">{{ $t("message.products") }}</span>
 
             <button @click="refresh()" class="blue-button shadow-md hover:bg-red-500 text-white font-bold py-2 px-8 rounded float-right">
-                    New
+                {{ $t("message.new") }}
             </button>
 
             <div class="relative mx-auto text-black mr-4 float-right">

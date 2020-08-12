@@ -11,36 +11,6 @@
 
         <div id="title" class="font-bold" v-if="isUserAuth"> </div>
 
-        <div>
-            <router-link to="login"> 
-            <div id="wrapper" v-if="!isUserAuth">
-                <div id="first" class="rounded-lg bg-cover bg-purple-500">
-                    <font-awesome-icon class="fs-25" icon="cog" />
-                </div>
-                <div id="second" class="menuOptionTitle">
-                    <span class="font-extrabold">Login</span>
-                </div>
-                    <div id="third">
-                </div>
-            </div>
-            </router-link>
-        </div>
-
-        <div>
-            <router-link to="register"> 
-            <div id="wrapper" v-if="!isUserAuth">
-                <div id="first" class="rounded-lg bg-cover bg-pink-500">
-                    <font-awesome-icon class="fs-25" icon="cog" />
-                </div>
-                <div id="second" class="menuOptionTitle">
-                    <span class="font-extrabold">Register</span>
-                </div>
-                    <div id="third">
-                </div>
-            </div>
-            </router-link>
-        </div>
-
         <div v-for="item in items" :key="item.message">
             <router-link :to="item.link" style="color: #A6ABBD;"> 
             <div id="wrapper" v-if="isUserAuth">
@@ -72,7 +42,7 @@ export default {
     return {
       company: 'Welcome!',
       items: [
-        { message: 'home', link: '/', colour: "", icon: "chart-line"},
+        { message: 'dashboard', link: '/', colour: "", icon: "chart-line"},
         { message: 'orders', link: 'orders', colour: "", icon: "receipt"},
         { message: 'products', link: 'products', colour: "", icon: "box"},
         { message: 'picking', link: 'scan', colour: "", icon: "dolly-flatbed"},

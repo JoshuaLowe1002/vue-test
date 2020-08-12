@@ -20,8 +20,10 @@
     </div>
 
     <div class="w-full max-w-xs" id="outPopUp">
-        
-    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <span class="font-bold text-4xl">{{greet}}</span>
+    <br>
+    <span class="font-bold text-sm">Not got an account? <a class="font-medium blue-text" href="/register">Register</a></span>
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-6">
         <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="Email">
             Email
@@ -35,7 +37,7 @@
         <input v-model="password" autocomplete="current-password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Password">
         </div>
         <div class="flex items-center justify-between">
-        <button @click.prevent="validate()" class="button is-success bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+        <button @click.prevent="validate()" class="button is-success blue-button hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
             Sign In
         </button>
         <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
@@ -58,9 +60,21 @@ export default {
     return {
       email: null,
       password: null,
+      greet: null,
       validationErrors: [],
       firebaseError: ""
     };
+  },
+  mounted () {
+      var myDate = new Date();
+      var hrs = myDate.getHours();
+
+      if (hrs < 12)
+         this.greet = 'Good Morning!';
+      else if (hrs >= 12 && hrs <= 17)
+         this.greet = 'Good Afternoon!';
+      else if (hrs >= 17 && hrs <= 24)
+        this.greet = 'Good Evening!';
   },
   computed: {
     ...mapGetters(['getUser']),
@@ -68,12 +82,13 @@ export default {
       return this.$route.query.redirect || '/'
     }
   },
+  
   watch: {
     getUser (auth) {
       if(!!auth){
         this.$router.replace(this.nextRoute)
       }
-    }
+    },
   },
   methods: {
     ...mapActions(["signInAction"]),

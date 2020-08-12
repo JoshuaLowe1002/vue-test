@@ -14,13 +14,13 @@
         </div>
         
         <div id="profile" v-if="isUserAuth" class="float-right w-170">
-          <div id="first" class="rounded-full bg-orange-500 circle-image bg-cover" style="padding-top: 4px !important; padding-left: 10px !important;"><span class="font-medium text-lg text-white">{{firstTwo}}</span></div>
+          <div id="first" class="rounded-full bg-orange-500 circle-image bg-cover" style="padding-top: 5px !important; padding-left: 9px !important;"><span class="font-medium text-lg text-white">{{firstTwo}}</span></div>
           <div id="second">
             <span class="font-medium text-m">{{getUser.displayName}}</span>
           </div>
         </div>
 
-        <div class="float-right p-3 px-2 mr-4">
+        <div class="float-right p-3 px-2 mr-4" v-if="isUserAuth">
           <font-awesome-icon class="fs-4 text-gray-600" icon="bell" />
         </div>
 
@@ -33,6 +33,7 @@
 
 <script>
 import {mapGetters} from 'vuex';
+import firebase from 'firebase';
 
 export default {
   computed: {
@@ -44,7 +45,9 @@ export default {
     }
   },
   mounted () {
-    if (!this.isUserAuth){
+    var user = firebase.auth().currentUser;
+
+    if (user){
       var initials = this.getUser.displayName.match(/\b\w/g) || [];
       initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
       this.firstTwo = initials;

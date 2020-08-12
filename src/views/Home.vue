@@ -1,7 +1,7 @@
 <template>
     <div id="home">
         <div id="home-container">
-            <span class="text-3xl font-bold">Dashboard</span>
+            <span class="text-3xl font-bold">{{ $t("message.dashboard") }}</span>
             <div class="grid-container">
                 <div class="Large-Top shadow-xl rounded-lg">
                     <span class="text-4xl font-bold">{{this.greet}}, </span><span class="text-4xl font-medium">{{this.getUser.displayName}}</span>
@@ -9,7 +9,7 @@
                         <div class="red shadow-md p-3">
                             <div class="divLeft  bg-cover h-20 w-20" style="background-image: url('https://eal-website.s3.amazonaws.com/cms/hierarchy/small/warehousemanagement.png');"></div>
                             <div class="divRight text-left">
-                                <span class="text-lg font-bold">Add a product</span>
+                                <span class="text-lg font-bold">{{ $t("message.addaproduct") }}</span>
                                 <br>
                                 <button class="blue-button shadow-md hover:bg-red-500 text-white font-bold py-2 mt-2 px-8 rounded float-right">
                                         Go!
@@ -19,7 +19,7 @@
                         <div class="red shadow-md p-3 ml-3">
                             <div class="divLeft bg-cover h-20 w-20" style="background-image: url('https://eal-website.s3.amazonaws.com/cms/hierarchy/small/ecommerce.png');"></div>
                             <div class="divRight text-left">
-                                <span class="text-lg font-bold">View my orders</span>
+                                <span class="text-lg font-bold">{{ $t("message.viewmyorders") }}</span>
                                 <br>
                                 <button class="blue-button shadow-md hover:bg-red-500 text-white font-bold py-2 mt-2 px-8 rounded float-right">
                                         Go!
@@ -29,7 +29,7 @@
                         <div class="red shadow-md p-3 ml-3">
                             <div class="divLeft bg-cover h-20 w-20" style="background-image: url('https://img.icons8.com/cotton/2x/lifebuoy.png');"></div>
                             <div class="divRight text-left">
-                                <span class="text-lg font-bold">Contact Support</span>
+                                <span class="text-lg font-bold">{{ $t("message.contactsupport") }}</span>
                                 <br>
                                 <button class="blue-button shadow-md hover:bg-red-500 text-white font-bold py-2 mt-2 px-8 rounded float-right">
                                         Go!
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="Small-Top shadow-xl rounded-lg">
-                    <span class="text-2xl font-bold">News + Offers</span>
+                    <span class="text-2xl font-bold">{{ $t("message.NewsOffers") }}</span>
                     <div id="profile" class="mt-3">
                         <div id="first" class="rounded-lg bg-cover" style="background-image: url('https://www.iconbunny.com/icons/media/catalog/product/2/1/2123.7-announcement-icon-iconbunny.jpg');"></div>
                         <div id="second">
@@ -65,7 +65,7 @@
                      <div class="divRight text-right">
                          <span class="font-bold" style="font-size: 4.25rem;">103</span>
                          <br>
-                         <span class="font-medium text-2xl">Orders Today</span>
+                         <span class="font-medium text-2xl">{{ $t("message.orderstoday") }}</span>
                      </div>
                 </div>
                 <div class="Middle-2 shadow-xl rounded-lg inline-block">
@@ -75,7 +75,7 @@
                     <div class="divRight text-right">
                          <span class="font-regular" style="font-size: 4.25rem;">9/</span><span class="font-bold" style="font-size: 4.25rem;">103</span>
                          <br>
-                         <span class="font-medium text-2xl">Shipped</span>
+                         <span class="font-medium text-2xl">{{ $t("message.shipped") }}</span>
                      </div>
                 </div>
                 <div class="Middle-3 shadow-xl rounded-lg">
@@ -85,7 +85,7 @@
                     <div class="divRight text-right">
                         <span class="font-bold" style="font-size: 4.25rem;">£4678</span>
                         <br>
-                        <span class="font-medium text-2xl">Processed</span>
+                        <span class="font-medium text-2xl">{{ $t("message.processed") }}</span>
                     </div>
                 </div>
                 <div class="Bottom-Large shadow-xl rounded-lg">
@@ -155,11 +155,11 @@ export default {
         var hrs = myDate.getHours();
 
         if (hrs < 12)
-            this.greet = 'Good Morning';
+            this.greet = this.$i18n.t("message.morning");
         else if (hrs >= 12 && hrs <= 17)
-            this.greet = 'Good Afternoon';
+            this.greet = this.$i18n.t("message.afternoon");
         else if (hrs >= 17 && hrs <= 24)
-            this.greet = 'Good Evening';
+            this.greet = this.$i18n.t("message.evening");
         }
         
 };

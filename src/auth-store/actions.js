@@ -49,6 +49,9 @@ const actions = {
         firebase
             .auth()
             .signInWithEmailAndPassword(payload.email, payload.password)
+            .then(() => {
+                location.reload();
+            })
             .catch(error => {
                 commit("setError", error.message);
             });
@@ -59,8 +62,7 @@ const actions = {
             .signOut()
             .then(() => {
                 commit("setUser", null);
-                router.push({ name: "Login" });
-
+                router.push({ name: "Register" });
             })
             .catch(error => {
                 commit("setError", error.message);
