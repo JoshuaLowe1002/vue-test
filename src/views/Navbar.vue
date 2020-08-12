@@ -3,7 +3,7 @@
         <div id="profile" onclick="highlightBox('profile')">
             <div id="first" class="rounded-lg bg-cover" style="background-image: url('https://avatars1.githubusercontent.com/u/24291894?s=280&v=4');"></div>
             <div id="second">
-                <span class="font-bold text-lg">Bobs Ramen</span>
+                <span class="font-bold text-lg">{{company}}</span>
             </div>
             <div id="third">
             </div>
@@ -42,8 +42,8 @@
         </div>
 
         <div v-for="item in items" :key="item.message">
-            <router-link :to="item.link"> 
-            <div id="wrapper" :class="item.class" class="inactive" v-if="isUserAuth">
+            <router-link :to="item.link" style="color: #A6ABBD;"> 
+            <div id="wrapper" v-if="isUserAuth">
                 <div id="first" class="rounded-lg bg-cover" :class="item.colour">
                     <font-awesome-icon class="fs-25" :icon="item.icon" />
                 </div>
@@ -70,15 +70,20 @@ export default {
   },
   data() {
     return {
-      msg: 'Post vue',
+      company: 'Welcome!',
       items: [
-        { message: 'home', link: '/', colour: "", icon: "chart-line", class:"active"},
-        { message: 'orders', link: '/', colour: "", icon: "receipt"},
+        { message: 'home', link: '/', colour: "", icon: "chart-line"},
+        { message: 'orders', link: 'orders', colour: "", icon: "receipt"},
         { message: 'products', link: 'products', colour: "", icon: "box"},
         { message: 'picking', link: 'scan', colour: "", icon: "dolly-flatbed"},
         { message: 'settings', link: 'settings', colour: "", icon: "cog"}
       ]
     };
+  },
+  mounted () {
+      if (localStorage.getItem("company") !== null){
+        this.company = localStorage.getItem("company");
+      }
   },
   computed: {
     ...mapGetters(["isUserAuth"])
@@ -128,13 +133,15 @@ export default {
             padding: 10px;
         }
 
-        .inactive {
-            color: #A6ABBD;
+        .active {
+            color: white !important;
         }
 
-        .active {
-            color: white;
+        body {
+            padding: 0;
+            margin: 0;
         }
+
         
         #second {
             width: 65%;

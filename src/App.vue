@@ -43,8 +43,18 @@ export default {
         left: 0; 
         position: fixed; 
     }
+
     .navbar-col {
         background-color: #202D5B;
     }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity 400ms;
+    }
+
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
+    }
+
 </style>
  

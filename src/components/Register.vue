@@ -6,7 +6,6 @@
     >
     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-1 rounded relative float-right mt-20 mx-3" role="alert">
     <div class="content">
-        Please resolve the following error(s) before proceeding.
         <ul style="margin-top:0.3em; margin-left: 1em">
         <li
             v-for="(error, index) in validationErrors"
@@ -20,20 +19,26 @@
 
     <div class="w-full max-w-xs" id="outPopUp">
         
-    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="Email">
-            Full Name
-        </label>
-        <input v-model="name" autocomplete="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Joe Bloggs">
+    <form id="regForm" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div class="tab">
+
+          <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="Email">
+              Full Name
+          </label>
+          <input v-model="name" autocomplete="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Joe Bloggs">
+          </div>
+
+
+          <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="Email">
+              Email
+          </label>
+          <input v-model="email" autocomplete="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Email">
+          </div>
+
         </div>
 
-        <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="Email">
-            Email
-        </label>
-        <input v-model="email" autocomplete="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Email">
-        </div>
 
         <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="Email">
@@ -83,6 +88,7 @@ export default {
       name: null,
       company: null,
       passwordRepeat: null,
+      messages: [],
       validationErrors: []
     };
   },
@@ -118,6 +124,9 @@ firestore() {
       if (!this.email) {
         this.validationErrors.push("<strong>E-mail</strong> cannot be empty.");
       }
+      if (this.email.toLowerCase().indexOf("fulfilmentcrowd.com") === -1) {
+        this.validationErrors.push("<strong>E-mail</strong> must be registered to fulfilmentcrowd.");
+      }
       if (/.+@.+/.test(this.email) != true) {
         this.validationErrors.push("<strong>E-mail</strong> must be valid.");
       }
@@ -140,6 +149,7 @@ firestore() {
       }
     },
     signUp() {
+      this.validationErrors.push("<strong>Please check your inbox to activate your account</strong>");
       this.signUpAction({ email: this.email, password: this.password, name: this.name, company: this.company });
     }
   }

@@ -1,6 +1,8 @@
+
+import { auth } from '../firebase'
 const getters = {
-    getUser(state) {
-        return state.user;
+    getUser() {
+        return auth.currentUser;
     },
     isUserAuth(state) {
         return !!state.user;

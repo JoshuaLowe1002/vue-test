@@ -3,7 +3,7 @@
         <div class="inline-block text-2xl mx-2 float-left" id="menu" @click="showNav()">
           <font-awesome-icon icon="bars" />
         </div>
-        <div class="float-left search">
+        <div class="float-left search" v-if="isUserAuth">
           <div class="relative mx-auto text-black">
           <input class="h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none s-width"
             type="search" name="search" placeholder="Search">
@@ -13,10 +13,10 @@
           </div>
         </div>
         
-        <div id="profile" class="float-right w-170">
-          <div id="first" class="rounded-full circle-image bg-cover" style="background-image: url('https://avatars3.githubusercontent.com/u/25752941?s=460&u=131730e97ddb996d629a0c9a2a69d73a1254d8f9&v=4');"></div>
+        <div id="profile" v-if="isUserAuth" class="float-right w-170">
+          <div id="first" class="rounded-full bg-orange-500 circle-image bg-cover" style="padding-top: 4px !important; padding-left: 10px !important;"><span class="font-medium text-lg text-white">{{firstTwo}}</span></div>
           <div id="second">
-            <span class="font-medium text-m">Joshua Lowe</span>
+            <span class="font-medium text-m">{{getUser.displayName}}</span>
           </div>
         </div>
 
@@ -32,11 +32,23 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
+
 export default {
-  data() {
+  computed: {
+    ...mapGetters(['getUser', 'isUserAuth'])
+  },
+  data () {
     return {
-      msg: 'Post vue'
-    };
+      firstTwo: ''
+    }
+  },
+  mounted () {
+    if (!this.isUserAuth){
+      var initials = this.getUser.displayName.match(/\b\w/g) || [];
+      initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
+      this.firstTwo = initials;
+    }
   },
   methods: {
     showNav() {

@@ -5,14 +5,32 @@ var db = firebase.firestore;
 
 const actions = {
     authAction({ commit }) {
-        firebase.auth().onAuthStateChanged(user => {
-            if (user) {
-                commit("setUser", user);
-            } else {
-                commit("setUser", null);
+        var authSettings = { url: "http://localhost:8080" }
+        firebase.auth().onAuthStateChanged(firebaseUser => {
+            if (firebaseUser) {
+                if (firebaseUser.emailVerified == false && localStorage.getItem("email") !== true){
+                firebaseUser.sendEmailVerification(authSettings).then(function() {
+                    console.log('Sending Verification');
+                    localStorage.setItem("email", "true");
+                }, function(error) {
+                    console.log('Not sending verification');
+                });
             }
-        });
+                if (firebaseUser.emailVerified == true) {
+                    if (localStorage.getItem("email") !== null){
+                        localStorage.removeItem("email");
+                    }
+                    commit("setUser", firebaseUser);
+                } else {
+                    console.log("hi!");
+                }
+        
+            } else {
+                console.log('Not Logged In');
+            }
+        })
     },
+    
     signUpAction({ commit }, payload) {
         firebase
             .auth()
@@ -21,6 +39,7 @@ const actions = {
                 result.user.updateProfile({
                     displayName: payload.name
                 });
+                localStorage.setItem("company", payload.company);
             })
             .catch(error => {
                 commit("setError", error.message);

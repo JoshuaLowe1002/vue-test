@@ -1,7 +1,7 @@
 <template>
     <div id="products">
         <div id="products-container">
-            <span class="text-3xl font-bold">{{ $t("message.products") }}</span>
+            <span class="text-3xl font-bold">Orders</span>
 
             <button @click="refresh()" class="blue-button shadow-md hover:bg-red-500 text-white font-bold py-2 px-8 rounded float-right">
                     New
@@ -12,7 +12,7 @@
                 type="search" name="search" placeholder="Search" id="productSearch" v-on:keyup="myFunction()">
             </div>
 
-
+            <h1>{{orders}}</h1>
             <table class="table-fixed w-full rounded-lg bg-white my-5 border-collapse shadow-lg my-12" border="0" id="productTable">
             <thead>
                 <tr class="rounded-t-lg text-black text-left header">
@@ -31,13 +31,6 @@
                     <td class="px-4 py-2">Loading...</td>
                     <td class="px-4 py-2">Loading...</td>
                 </tr>
-                <tr v-for="product in products.edges" class="border" :key="product.node.id">
-                    <td class="px-4 py-4"><input type="checkbox"></td>
-                    <td class="px-4 py-2">{{product.node.title}}</td>
-                    <td class="px-4 py-2">{{product.node.totalInventory}}</td>
-                    <td class="px-4 py-2">{{product.node.productType}}</td>
-                    <td class="px-4 py-2">£{{product.node.priceRange.maxVariantPrice.amount}}</td>
-                </tr> 
             </tbody>
             </table>
         </div>
@@ -48,31 +41,27 @@
 import gql from 'graphql-tag'
 
 export default {
-    name: 'products',
+    name: 'orders',
     data () {
         return {
-            products: [],
+            orders: [],
             search: ''
         }
     },
     apollo: {
-        products: gql`{
-            products(first: 100) {
-                edges {
-                    node {
-                        id
-                        title
-                        totalInventory
-                        productType
-                        priceRange{
-                            maxVariantPrice {
-                                amount
-                            }
-                        }
-                    }
-                }
-            }
-        }`,
+        orders: gql`{
+            Order{
+  orders(first:2, query:"fulfillment_status:shipped") {
+    edges {
+      node {
+        id
+        name
+        displayFulfillmentStatus
+      }
+    }
+  }
+  }
+}`,
     },
     methods: {
         refresh() {

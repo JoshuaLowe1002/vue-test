@@ -4,6 +4,7 @@ import Scanner from './views/Scanner.vue'
 import Home from './views/Home.vue'
 import Settings from './views/Settings.vue'
 import Products from './views/Products.vue'
+import Orders from './views/Orders.vue'
 import Login from './components/Login.vue'
 import Register from './components/Register.vue'
 import firebase from "firebase/app";
@@ -24,6 +25,14 @@ const routes = [{
         path: '/scan',
         name: 'scan',
         component: Scanner,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/orders',
+        name: 'orders',
+        component: Orders,
         meta: {
             requiresAuth: true
         }
@@ -61,6 +70,7 @@ const routes = [{
 const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
+    linkExactActiveClass: 'active',
     routes
 })
 
