@@ -6,8 +6,31 @@ import getters from "./auth-store/getters";
 
 Vue.use(Vuex);
 
+class Product {
+    constructor(title, stock, category, price) {
+        this.title = title;
+        this.stock = stock;
+        this.category = category;
+        this.price = price;
+    }
+}
+
 const initialState = () => {
-    return { user: null, error: null };
+    var products = [
+        new Product(
+            'iPhone 11 Pro',
+            '4',
+            'Apple',
+            '1499'
+        ),
+        new Product(
+            'Galaxy Note 20',
+            '10',
+            'Android',
+            '1299'
+        ),
+    ];
+    return { user: null, error: null, products };
 };
 
 export default new Vuex.Store({

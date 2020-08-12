@@ -1,4 +1,3 @@
-
 import { auth } from '../firebase'
 const getters = {
     getUser() {
@@ -9,6 +8,9 @@ const getters = {
     },
     getError(state) {
         return state.error;
+    },
+    productList(state) {
+        return state.products;
     }
 };
 

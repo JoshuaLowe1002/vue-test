@@ -31,12 +31,12 @@
                     <td class="px-4 py-2">Loading...</td>
                     <td class="px-4 py-2">Loading...</td>
                 </tr>
-                <tr v-for="product in products.edges" class="border" :key="product.node.id">
+                <tr class="border" v-for="Product in this.productList" :key="Product.title">
                     <td class="px-4 py-4"><input type="checkbox"></td>
-                    <td class="px-4 py-2">{{product.node.title}}</td>
-                    <td class="px-4 py-2">{{product.node.totalInventory}}</td>
-                    <td class="px-4 py-2">{{product.node.productType}}</td>
-                    <td class="px-4 py-2">£{{product.node.priceRange.maxVariantPrice.amount}}</td>
+                    <td class="px-4 py-2">{{Product.title}}</td>
+                    <td class="px-4 py-2">{{Product.stock}}</td>
+                    <td class="px-4 py-2">{{Product.category}}</td>
+                    <td class="px-4 py-2">£{{Product.price}}</td>
                 </tr> 
             </tbody>
             </table>
@@ -45,34 +45,14 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
+import {mapGetters, mapMutations} from 'vuex';
 
 export default {
     name: 'products',
     data () {
         return {
-            products: [],
-            search: ''
+            search: '',
         }
-    },
-    apollo: {
-        products: gql`{
-            products(first: 100) {
-                edges {
-                    node {
-                        id
-                        title
-                        totalInventory
-                        productType
-                        priceRange{
-                            maxVariantPrice {
-                                amount
-                            }
-                        }
-                    }
-                }
-            }
-        }`,
     },
     methods: {
         refresh() {
@@ -89,7 +69,9 @@ export default {
             return this.products.filter(product => {
                 return product.edges.node.title.toLowerCase().includes(this.search.toLowerCase())
             })
-        }
+        },
+        ...mapGetters(['productList']),
+        ...mapMutations(['addProduct'])
     },
     mounted () {
         document.getElementById("navclose").style.display = "none";
@@ -97,6 +79,8 @@ export default {
         if (window.innerWidth < 600) {
             document.getElementById("navbar").style.display = "none";
         }
+        
+        //this.$store.commit("addProduct", {title: "Test", stock: "5", category: "Test", price: "99"});
     }
 };
 </script>
