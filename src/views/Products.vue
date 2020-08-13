@@ -14,7 +14,7 @@
             </div>
 
 
-            <sorted-table :values="productList" class="table-fixed w-full rounded-lg bg-white border-collapse shadow-lg my-12" border="0" id="productTable">
+            <sorted-table :values="filteredList" class="table-fixed w-full rounded-lg bg-white border-collapse shadow-lg my-12" border="0" id="productTable">
             <thead>
                 <tr class="rounded-t-lg text-black text-left header">
                     <th class="w-12 px-4 py-6"><input type="checkbox"></th>
