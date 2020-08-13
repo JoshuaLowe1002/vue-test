@@ -1,58 +1,70 @@
 <template>
     <div id="products">
+        <Flyout v-bind:title="title" v-bind:description="description" v-bind:stock="stock" v-bind:price="price" v-bind:category="category" v-bind:currentid="currentId" />
         <div id="products-container">
             <span class="text-3xl font-bold">{{ $t("message.products") }}</span>
 
-            <button @click="refresh()" class="blue-button shadow-md hover:bg-red-500 text-white font-bold py-2 px-8 rounded float-right">
+            <button @click="addProductPage()" class="blue-button shadow-md hover:bg-red-500 text-white font-bold py-2 px-8 rounded float-right">
                 {{ $t("message.new") }}
             </button>
 
             <div class="relative mx-auto text-black mr-4 float-right">
                 <input class="h-10 px-5 rounded-lg text-sm focus:outline-none s-width"
-                type="search" name="search" placeholder="Search" id="productSearch" v-on:keyup="myFunction()">
+                type="search" name="search" placeholder="Search" id="productSearch" v-model="search">
             </div>
 
 
-            <table class="table-fixed w-full rounded-lg bg-white my-5 border-collapse shadow-lg my-12" border="0" id="productTable">
+            <sorted-table :values="productList" class="table-fixed w-full rounded-lg bg-white border-collapse shadow-lg my-12" border="0" id="productTable">
             <thead>
                 <tr class="rounded-t-lg text-black text-left header">
                     <th class="w-12 px-4 py-6"><input type="checkbox"></th>
-                    <th class="w-1/4 px-4 py-2">{{ $t("message.productname") }}</th>
-                    <th class="w-1/4 px-4 py-2">{{ $t("message.stock") }}</th>
-                    <th class="w-1/4 px-4 py-2">{{ $t("message.category") }}</th>
-                    <th class="w-1/4 px-4 py-2">Price</th>
+                    <th scope="col" class="w-24 px-4 py-2"><sort-link name="id">ID</sort-link></th>
+                    <th scope="col" class="w-1/4 px-4 py-2"><sort-link name="title">Name</sort-link></th>
+                    <th scope="col" class="w-1/4 px-4 py-2"><sort-link name="stock">Stock</sort-link></th>
+                    <th scope="col" class="w-1/4 px-4 py-2"><sort-link name="category">Category</sort-link></th>
+                    <th scope="col" class="w-1/4 px-4 py-2"><sort-link name="price">Price</sort-link></th>
                 </tr>
             </thead>
+            <template #body="sort">
             <tbody class="rounded-b-lg">
-                <tr class="border" v-if="$apollo.loading">
-                    <td class="px-4 py-2"></td>
-                    <td class="px-4 py-2">Loading...</td>
-                    <td class="px-4 py-2">Loading...</td>
-                    <td class="px-4 py-2">Loading...</td>
-                    <td class="px-4 py-2">Loading...</td>
-                </tr>
-                <tr class="border" v-for="Product in this.productList" :key="Product.title">
+                <tr class="border" v-for="Product in sort.values" :key="Product.id">
                     <td class="px-4 py-4"><input type="checkbox"></td>
+                    <td class="px-4 py-2 blue-text cursor-pointer" @click="openFlyout(Product.id)">#{{Product.id}}</td>
                     <td class="px-4 py-2">{{Product.title}}</td>
-                    <td class="px-4 py-2">{{Product.stock}}</td>
+                    <td class="px-4 py-2">{{Product.stock}}</td> 
                     <td class="px-4 py-2">{{Product.category}}</td>
                     <td class="px-4 py-2">£{{Product.price}}</td>
                 </tr> 
             </tbody>
-            </table>
+            </template>
+            </sorted-table>
         </div>
     </div>
 </template>
 
 <script>
 import {mapGetters, mapMutations} from 'vuex';
+import router from '../router';
+import Flyout from './Flyout';
 
 export default {
     name: 'products',
     data () {
         return {
             search: '',
+            ascending: false,
+            sortColumn: '',
+            title: null,
+            description: null,
+            stock: null,
+            price: null,
+            currentId: "hi",
+            category: null,
+            flyoutShow: false
         }
+    },
+    components: {
+        Flyout,
     },
     methods: {
         refresh() {
@@ -62,14 +74,32 @@ export default {
             const filter = document.querySelector('#productSearch').value.toUpperCase();
             const trs = document.querySelectorAll('#productTable tr:not(.header)');
             trs.forEach(tr => tr.style.display = [...tr.children].find(td => td.innerHTML.toUpperCase().includes(filter)) ? '' : 'none');
-        }
+        },
+        addProductPage () {
+            router.push({ name: "addproduct" });
+        },
+        openFlyout (id) {
+            this.currentId = this.productList[id-1].id;
+            if (document.getElementById("flyout") !== null){
+                document.getElementById("flyout").style.display = "block";
+            }
+            document.getElementById("flyout").classList.toggle("animate__fadeOutRight");
+            this.title = this.productList[id-1].title;
+            this.description = this.productList[id-1].description;
+            this.stock = this.productList[id-1].stock;
+            this.price = this.productList[id-1].price;
+            this.category = this.productList[id-1].category;
+            document.getElementById("flyoutclose").style.display = "block";
+        },
+        
     },
     computed: {
         filteredList() {
-            return this.products.filter(product => {
-                return product.edges.node.title.toLowerCase().includes(this.search.toLowerCase())
+            return this.productList.filter(product => {
+                return product.title.toLowerCase().includes(this.search.toLowerCase())
             })
         },
+
         ...mapGetters(['productList']),
         ...mapMutations(['addProduct'])
     },
@@ -79,6 +109,8 @@ export default {
         if (window.innerWidth < 600) {
             document.getElementById("navbar").style.display = "none";
         }
+
+        console.log(this.productList[1].id);
         
         //this.$store.commit("addProduct", {title: "Test", stock: "5", category: "Test", price: "99"});
     }
@@ -86,19 +118,15 @@ export default {
 </script>
 
 <style>
-#products {
-  padding-top: 4.5rem;
-  margin-left: 255px;
-  height: 70vh;
-}
-
 .blue-button {
     background-color: #0077FF;
 }
 
 #products-container {
+    padding-top: 90px !important;
+    margin-left: 255px;
+    height: 70vh;
     padding: 25px;
-    padding-top: 15px !important;
 }
 
 

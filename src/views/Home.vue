@@ -167,9 +167,9 @@ export default {
 
 <style scoped>
 #home {
-  padding-top: 4.5rem;
-  margin-left: 255px;
-  height: 70vh;
+    padding-top: 75px;
+    margin-left: 255px;
+    height: 70vh;
 }
 
 #home-container {

@@ -1,6 +1,7 @@
 <template>
     <div id="app">
         <div class="fadeMe hidden" id="navclose" @click="hideNav()"></div>
+        <div class="flyoutHide hidden" id="flyoutclose" @click="hideFlyout()"></div>
         <Navbar></Navbar>
         <Taskbar></Taskbar>
     	<router-view />
@@ -26,6 +27,10 @@ export default {
             document.getElementById("navbar").style.display = "none";
             document.getElementById("navclose").style.display = "none";
         },
+        hideFlyout() {
+            document.getElementById("flyout").classList.add("animate__fadeOutRight");
+            document.getElementById("flyoutclose").style.display = "none";
+        },
         ...mapActions(["authAction"])
     }
 };
@@ -44,12 +49,28 @@ export default {
         position: fixed; 
     }
 
+    div.flyoutHide {
+        opacity: 0.7; 
+        background: #000; 
+        width: 100%;
+        height: 100%; 
+        z-index: 100;
+        top: 0; 
+        cursor: pointer;
+        left: 0; 
+        position: fixed; 
+    }
+
     .navbar-col {
         background-color: #202D5B;
     }
 
     .fade-enter-active, .fade-leave-active {
         transition: opacity 400ms;
+    }
+
+    :root {
+        --animate-duration: 600ms;
     }
 
     .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {

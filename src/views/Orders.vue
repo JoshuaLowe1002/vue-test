@@ -91,21 +91,10 @@ export default {
 </script>
 
 <style>
-#products {
-  padding-top: 4.5rem;
-  margin-left: 255px;
-  height: 70vh;
-}
 
 .blue-button {
     background-color: #0077FF;
 }
-
-#products-container {
-    padding: 25px;
-    padding-top: 15px !important;
-}
-
 
 @media screen and (max-width: 600px) {
   #products {

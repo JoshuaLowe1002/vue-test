@@ -14,7 +14,7 @@
         </div>
         
         <div id="profile" v-if="isUserAuth" class="float-right w-170">
-          <div id="first" class="rounded-full bg-orange-500 circle-image bg-cover" style="padding-top: 5px !important; padding-left: 9px !important;"><span class="font-medium text-lg text-white">{{firstTwo}}</span></div>
+          <div id="first" class="rounded-full bg-orange-500 circle-image bg-cover" style="padding-top: 5px !important; padding-left: 10px !important;"><span class="font-medium text-lg text-white">{{firstTwo}}</span></div>
           <div id="second">
             <span class="font-medium text-m">{{getUser.displayName}}</span>
           </div>

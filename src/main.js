@@ -9,6 +9,9 @@ import './assets/styles/index.css'
 
 import VueI18n from 'vue-i18n';
 
+import SortedTablePlugin from "vue-sorted-table";
+Vue.use(SortedTablePlugin);
+
 import { auth } from './firebase'
 
 Vue.use(VueI18n);

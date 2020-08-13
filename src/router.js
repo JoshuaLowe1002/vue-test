@@ -5,6 +5,8 @@ import Home from './views/Home.vue'
 import Settings from './views/Settings.vue'
 import Products from './views/Products.vue'
 import Orders from './views/Orders.vue'
+import AddProduct from './views/AddProduct.vue'
+import EditProduct from './views/EditProduct.vue'
 import Login from './components/Login.vue'
 import Register from './components/Register.vue'
 import firebase from "firebase/app";
@@ -49,6 +51,22 @@ const routes = [{
         path: '/products',
         name: 'products',
         component: Products,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/addproduct',
+        name: 'addproduct',
+        component: AddProduct,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/editproduct/:userId',
+        name: 'editproduct',
+        component: EditProduct,
         meta: {
             requiresAuth: true
         }
