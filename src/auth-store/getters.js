@@ -11,7 +11,13 @@ const getters = {
     },
     productList(state) {
         return state.products;
-    }
+    },
+    getIncome(state) {
+        return state.income;
+    },
+    orderList(state) {
+        return state.orders;
+    },
 };
 
 export default getters;

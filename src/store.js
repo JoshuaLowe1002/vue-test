@@ -16,7 +16,25 @@ class Product {
     }
 }
 
+class Order {
+    constructor(customer, products, status, price) {
+        this.customer = customer;
+        this.products = products;
+        this.status = status;
+        this.price = price;
+    }
+}
+
 const initialState = () => {
+    var orders = [
+        new Order (
+            'Joshua Lowe',
+            ['iPhone 11 Pro'],
+            'Paid',
+            '1499'
+        )
+    ]
+    var income = 1499;
     var products = [
         new Product(
             'iPhone 11 Pro',
@@ -46,12 +64,79 @@ const initialState = () => {
             '1.20',
             'Misc'
         ),
+        new Product(
+            'Headphones',
+            'Really cool headphones',
+            '30',
+            '130',
+            'Tech'
+        ),
+        new Product(
+            'Mechanical Keyboard',
+            'MX Blue Switches',
+            '12',
+            '50',
+            'Tech'
+        ),
+        new Product(
+            'Desk Lamp',
+            'Adjustable brightness desk lamp',
+            '4',
+            '23',
+            'Home'
+        ),
+        new Product(
+            'Amazon Echo',
+            'A smart home assisstant',
+            '39',
+            '65',
+            'Tech'
+        ),
+        new Product(
+            'Gaming Monitor',
+            'Perfect for advanced gamers',
+            '2',
+            '5',
+            'Tech'
+        ),
+        new Product(
+            '512GB SSD',
+            'Super fast Samsung SSD',
+            '78',
+            '45',
+            'Tech'
+        ),
+        new Product(
+            '2TB HDD',
+            'Perfect for game storage or NAS use',
+            '22',
+            '95',
+            'Tech'
+        ),
+        new Product(
+            'Desk',
+            'Great for a home office',
+            '3',
+            '78',
+            'Home'
+        ),
+        new Product(
+            'Gaming PC',
+            'Prebuilt Gaming PC',
+            '1',
+            '4555',
+            'Tech'
+        ),
     ];
     
     products.forEach((item, i) => {
         item.id = i + 1;
       });
-    return { user: null, error: null, products };
+
+    orders.forEach((item, i) => {
+        item.id = i + 1;
+      });
+    return { user: null, error: null, products, orders, income };
 };
 
 export default new Vuex.Store({

@@ -6,6 +6,7 @@ import Settings from './views/Settings.vue'
 import Products from './views/Products.vue'
 import Orders from './views/Orders.vue'
 import AddProduct from './views/AddProduct.vue'
+import AddOrder from './views/AddOrder.vue'
 import EditProduct from './views/EditProduct.vue'
 import Login from './components/Login.vue'
 import Register from './components/Register.vue'
@@ -59,6 +60,14 @@ const routes = [{
         path: '/addproduct',
         name: 'addproduct',
         component: AddProduct,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/addorder',
+        name: 'addorder',
+        component: AddOrder,
         meta: {
             requiresAuth: true
         }

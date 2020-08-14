@@ -11,7 +11,7 @@
                             <div class="divRight text-left">
                                 <span class="text-lg font-bold">{{ $t("message.addaproduct") }}</span>
                                 <br>
-                                <button class="blue-button shadow-md hover:bg-red-500 text-white font-bold py-2 mt-2 px-8 rounded float-right">
+                                <button @click='addProductPage()' class="blue-button shadow-md hover:bg-red-500 text-white font-bold py-2 mt-2 px-8 rounded float-right">
                                         Go!
                                 </button>
                             </div>
@@ -21,7 +21,7 @@
                             <div class="divRight text-left">
                                 <span class="text-lg font-bold">{{ $t("message.viewmyorders") }}</span>
                                 <br>
-                                <button class="blue-button shadow-md hover:bg-red-500 text-white font-bold py-2 mt-2 px-8 rounded float-right">
+                                <button @click='orderPage()' class="blue-button shadow-md hover:bg-red-500 text-white font-bold py-2 mt-2 px-8 rounded float-right">
                                         Go!
                                 </button>
                             </div>
@@ -63,7 +63,7 @@
                         <font-awesome-icon class="text-6xl text-white" icon="shopping-cart" />
                      </div> 
                      <div class="divRight text-right">
-                         <span class="font-bold" style="font-size: 4.25rem;">103</span>
+                         <span class="font-bold" style="font-size: 4.25rem;">{{orderList.length}}</span>
                          <br>
                          <span class="font-medium text-2xl">{{ $t("message.orderstoday") }}</span>
                      </div>
@@ -73,9 +73,9 @@
                         <font-awesome-icon class="text-6xl text-white" icon="box" />
                      </div>
                     <div class="divRight text-right">
-                         <span class="font-regular" style="font-size: 4.25rem;">9/</span><span class="font-bold" style="font-size: 4.25rem;">103</span>
+                         <span class="font-bold" style="font-size: 4.25rem;">{{productList.length}}</span>
                          <br>
-                         <span class="font-medium text-2xl">{{ $t("message.shipped") }}</span>
+                         <span class="font-medium text-2xl">{{ $t("message.products") }}</span>
                      </div>
                 </div>
                 <div class="Middle-3 shadow-xl rounded-lg">
@@ -83,7 +83,7 @@
                         <font-awesome-icon class="text-6xl text-white" icon="pound-sign" />
                      </div>
                     <div class="divRight text-right">
-                        <span class="font-bold" style="font-size: 4.25rem;">£4678</span>
+                        <span class="font-bold" style="font-size: 4.25rem;">£{{getIncome}}</span>
                         <br>
                         <span class="font-medium text-2xl">{{ $t("message.processed") }}</span>
                     </div>
@@ -98,10 +98,12 @@
 
 <script>
 import {mapGetters} from 'vuex';
+import router from '../router';
+
 export default {
     name: 'home',
     computed: {
-      ...mapGetters(['getUser'])
+      ...mapGetters(['getUser', 'orderList', 'productList', 'getIncome'])
     },
     data() {
         return {
@@ -140,7 +142,13 @@ export default {
                     }
                 }
             });
-        }
+        },
+        addProductPage () {
+            router.push({ name: "addproduct" });
+        },
+        orderPage () {
+            router.push({ name: "orders" });
+        },
     },
     mounted () {
         document.getElementById("navclose").style.display = "none";

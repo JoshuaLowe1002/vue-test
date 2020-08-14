@@ -14,7 +14,7 @@
             </div>
 
 
-            <sorted-table :values="filteredList" class="table-fixed w-full rounded-lg bg-white border-collapse shadow-lg my-12" border="0" id="productTable">
+            <sorted-table :values="pageOfItems" class="table-fixed w-full rounded-lg bg-white border-collapse shadow-lg my-12" border="0" id="productTable">
             <thead>
                 <tr class="rounded-t-lg text-black text-left header">
                     <th class="w-12 px-4 py-6"><input type="checkbox"></th>
@@ -31,13 +31,14 @@
                     <td class="px-4 py-4"><input type="checkbox"></td>
                     <td class="px-4 py-2 blue-text cursor-pointer" @click="openFlyout(Product.id)">#{{Product.id}}</td>
                     <td class="px-4 py-2">{{Product.title}}</td>
-                    <td class="px-4 py-2">{{Product.stock}}</td> 
+                    <td class="px-4 py-2"><span :class="stockClass(Product.stock)">{{Product.stock}}</span></td> 
                     <td class="px-4 py-2">{{Product.category}}</td>
                     <td class="px-4 py-2">£{{Product.price}}</td>
                 </tr> 
             </tbody>
             </template>
             </sorted-table>
+             <jw-pagination :items="filteredList" :pageSize="pages" @changePage="onChangePage"></jw-pagination>
         </div>
     </div>
 </template>
@@ -57,16 +58,22 @@ export default {
             title: null,
             description: null,
             stock: null,
+            pageOfItems: [],
             price: null,
             currentId: "hi",
             category: null,
-            flyoutShow: false
+            flyoutShow: false,
+            pages: 5
         }
     },
     components: {
         Flyout,
     },
     methods: {
+        onChangePage(pageOfItems) {
+            // update page of items
+            this.pageOfItems = pageOfItems;
+        },
         refresh() {
             location.reload();
         },
@@ -91,6 +98,17 @@ export default {
             this.category = this.productList[id-1].category;
             document.getElementById("flyoutclose").style.display = "block";
         },
+        stockClass(n) {
+            if (n < 10){
+                return "red-text";
+            }
+            if (n < 30){
+                return "yellow-text";
+            }
+            if (n >= 30){
+                return "green-text";
+            }
+        }
         
     },
     computed: {
@@ -134,5 +152,84 @@ export default {
   #products {
       margin-left: 0px;
   }
+}
+
+.green-text {
+    background-color: #12C45F;
+    color: white;
+    font-weight: 500;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 100px; 
+    width: 75px;
+    text-align: center;
+    display: inline-block;      
+}
+
+.yellow-text {
+    background-color: #FFA500;
+    color: white;
+    font-weight: 500;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 100px; 
+    width: 75px;
+    text-align: center;
+    display: inline-block;  
+}
+
+.red-text {
+    background-color: #DC143C;
+    color: white;
+    font-weight: 500;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 100px; 
+    width: 75px;
+    text-align: center;
+    display: inline-block;  
+}
+
+.pagination {
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.pagination {
+    display: -ms-flexbox;
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: .25rem;
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem !important;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    cursor: auto;
+    background-color: #fff;
+    border-color: #dee2e6;
+}
+.page-item:first-child .page-link {
+    margin-left: 0;
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
 }
 </style>

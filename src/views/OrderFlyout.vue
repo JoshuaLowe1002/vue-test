@@ -1,9 +1,9 @@
 <template>
     <div class="h-full fixed navbar-col animate__animated animate__fadeInRight animate__fadeOutRight shadow-xl p-2 text-white noselect hidden" id="flyout">
         <div id="profile" onclick="highlightBox('profile')">
-            <div id="first" class="rounded-lg bg-cover" style="background-image: url('https://eal-website.s3.amazonaws.com/cms/hierarchy/small/warehousemanagement.png');"></div>
+            <div id="first" class="rounded-lg bg-cover" style="background-image: url('https://eal-website.s3.amazonaws.com/cms/hierarchy/small/ecommerce.png');"></div>
             <div id="second">
-                <span class="font-bold text-lg ml-3">Product Quick View</span>
+                <span class="font-bold text-lg ml-3">Order Quick View</span>
             </div>
             <div id="third">
             </div>
@@ -11,36 +11,25 @@
 
         <div id="title" class="font-bold" v-if="isUserAuth"> </div>
 
-        <div class="p-2 mb-3">
-            <span class="text-xl font-bold">Title</span>
-            <hr class="mb-4">
-            <span class="text-lg font-medium">{{title}}</span>
-        </div>
-        
-        <div class="p-2 mb-3">
-            <span class="text-xl font-bold">Description</span>
-            <hr class="mb-4">
-            <span class="text-lg font-medium">{{description}}</span>
-        </div>
-
-        <div class="p-2 mb-3">
-            <span class="text-xl font-bold">Stock Level</span>
-            <hr class="mb-4">
-            <span class="text-lg font-medium">{{stock}}</span>
-        </div>
-
-        <div class="p-2 mb-3">
-            <span class="text-xl font-bold">Price</span>
-            <hr class="mb-4">
-            <span class="text-lg font-medium">{{price}}</span>
-        </div>
-
-        <div class="p-2 mb-3">
-            <span class="text-xl font-bold">Category</span>
-            <hr class="mb-4">
-            <span class="text-lg font-medium">{{category}}</span>
+            <div class="p-2 mb-3">
+                <span class="text-xl font-bold">Customer</span>
+                <hr class="mb-4">
+                <span class="text-lg font-medium">{{customer}}</span>
+            </div>
             
-        </div>
+            <div class="p-2 mb-3">
+                <span class="text-xl font-bold">Products</span>
+                <hr class="mb-4">
+                <ul>
+                    <li v-for="Product in products" :key="Product">{{Product}}</li>
+                </ul>
+            </div>
+
+            <div class="p-2 mb-3">
+                <span class="text-xl font-bold">Status</span>
+                <hr class="mb-4">
+                <span class="text-lg font-medium">{{status}}</span>
+            </div>
 
         <button @click="editProduct()" class="m-2 blue-button shadow-md hover:bg-red-500 text-white font-bold py-2 px-8 rounded">
             Edit
@@ -55,12 +44,12 @@ import router from "../router";
 
 
 export default {
-  name: 'Flyout',
+  name: 'OrderFlyout',
   components: {
       Language
 
   },
-  props: ['title', 'description', 'stock', 'price', 'category', 'show', 'currentid'],
+  props: ['customer', 'products', 'status'],
   mounted () {
       if (localStorage.getItem("company") !== null){
         this.company = localStorage.getItem("company");
@@ -75,7 +64,7 @@ export default {
       }
   },
   computed: {
-    ...mapGetters(["isUserAuth", "productList"])
+    ...mapGetters(["isUserAuth", "orderList"])
   },
 };
 </script>
