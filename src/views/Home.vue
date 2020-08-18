@@ -180,6 +180,10 @@ export default {
     height: 70vh;
 }
 
+.blue-button {
+    background-color: #0077FF;
+}
+
 #home-container {
     padding: 25px;
     padding-top: 15px !important;

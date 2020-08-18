@@ -149,6 +149,20 @@ export default {
     display: inline-block;  
 }
 
+#products-container {
+    padding-top: 90px !important;
+    margin-left: 255px;
+    height: 70vh;
+    padding: 25px;
+}
+
+
+@media screen and (max-width: 600px) {
+  #products {
+      margin-left: 0px;
+  }
+}
+
 .red-text {
     background-color: #DC143C;
     color: white;
@@ -183,5 +197,52 @@ export default {
     min-width: 75px;
     text-align: center;
     display: inline-block;  
+}
+
+.pagination {
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.pagination {
+    display: -ms-flexbox;
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: .25rem;
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem !important;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    cursor: auto;
+    background-color: #fff;
+    border-color: #dee2e6;
+}
+.page-item:first-child .page-link {
+    margin-left: 0;
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.blue-button {
+    background-color: #0077FF;
 }
 </style>
