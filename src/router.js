@@ -5,7 +5,6 @@ import Home from './views/Home.vue'
 import Settings from './views/Settings.vue'
 import Products from './views/Products.vue'
 import Orders from './views/Orders.vue'
-import AddProduct from './views/AddProduct.vue'
 import AddOrder from './views/AddOrder.vue'
 import EditProduct from './views/EditProduct.vue'
 import Login from './components/Login.vue'
@@ -49,6 +48,14 @@ const routes = [{
         }
     },
     {
+        path: '/products/:productId',
+        name: 'productsID',
+        component: Products,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
         path: '/products',
         name: 'products',
         component: Products,
@@ -57,9 +64,9 @@ const routes = [{
         }
     },
     {
-        path: '/addproduct',
-        name: 'addproduct',
-        component: AddProduct,
+        path: '/products/:userId/manage',
+        name: 'editproduct',
+        component: EditProduct,
         meta: {
             requiresAuth: true
         }
@@ -68,14 +75,6 @@ const routes = [{
         path: '/addorder',
         name: 'addorder',
         component: AddOrder,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/editproduct/:userId',
-        name: 'editproduct',
-        component: EditProduct,
         meta: {
             requiresAuth: true
         }

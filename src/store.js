@@ -17,7 +17,7 @@ class Product {
 }
 
 class Order {
-    constructor(customer, products, status, price) {
+    constructor(customer, products, status, price, timeline) {
         this.customer = customer;
         this.products = products;
         this.status = status;
@@ -35,6 +35,7 @@ const initialState = () => {
         )
     ]
     var income = 1499;
+    var flyout = "create";
     var products = [
         new Product(
             'iPhone 11 Pro',
@@ -136,7 +137,7 @@ const initialState = () => {
     orders.forEach((item, i) => {
         item.id = i + 1;
       });
-    return { user: null, error: null, products, orders, income };
+    return { user: null, error: null, products, orders, income, flyout };
 };
 
 export default new Vuex.Store({

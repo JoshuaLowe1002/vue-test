@@ -1,17 +1,18 @@
 <template>
-    <div id="products">
-        <div id="products-container">
-            <span class="text-3xl font-bold">Add Product</span>
-            <button @click="addProductToList()" class="blue-button shadow-md hover:bg-red-500 text-white font-bold py-2 px-8 rounded float-right">
-                Save
+    <div>
+        <div>
+            <span class="text-3xl font-bold">Product</span>
+            <button @click="addProductToList()" v-if="!edit" class="blue-button shadow-md hover:bg-red-500 text-white font-bold py-2 px-8 rounded float-right">
+                Create
             </button>
+            
+            <button @click="editProductList()" v-if="edit" class="blue-button shadow-md hover:bg-red-500 text-white font-bold py-2 px-8 rounded float-right">
+                Update
+            </button>
+            
             <form>
-            <div class="container">
-                <div class="left">
-                    <span class="text-4xl font-bold">Product Details</span><br>
-                    <span class="text-lg font-regular">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</span>
-                </div>
-                <div class="middle shadow-xl rounded-lg">
+
+                <div class="shadow-xl rounded-lg bg-white w-full p-4 mb-8 mt-4">
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
                             Product Title
@@ -25,14 +26,9 @@
                         <textarea v-model="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32" id="description" type="text" placeholder="Description"></textarea>
                     </div>
                 </div>
-            </div>
 
-            <div class="container">
-                <div class="left">
-                    <span class="text-4xl font-bold">Product Properties</span><br>
-                    <span class="text-lg font-regular">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</span>
-                </div>
-                <div class="middle shadow-xl rounded-lg">
+
+                <div class="shadow-xl rounded-lg bg-white w-full p-4">
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
                             Stock Level
@@ -52,18 +48,10 @@
                             Category
                         </label>
                         <div class="inline-block relative w-64">
-                        <select v-model="category" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-                            <option>Tech</option>
-                            <option>Home</option>
-                            <option>Misc.</option>
-                        </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                        </div>
+                        <input v-model="category" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="category" type="text" placeholder="Category Name">
                         </div>
                     </div>
                 </div>
-            </div>
             </form>
 
         </div>
@@ -85,6 +73,7 @@ export default {
             category: null,
         }
     },
+    props: ['productId', 'edit'],
     methods: {
         refresh() {
             location.reload();
@@ -96,20 +85,43 @@ export default {
         },
         addProductToList() {
             this.$store.commit("addProduct", {title: this.productTitle, description: this.description, stock: this.stock, price: this.price, category: this.category});
-            router.push({ name: "products" });
-        }
+            this.hideFlyout();
+            Object.keys(this.$data).forEach(key => this.$data[key] = null);
+            this.$store.commit("flyout", false);
+        },
+        editProductList() {
+            if (this.$route.params.productId) {
+                console.log(this.productList[this.productId].title);
+                this.productList[this.productId].title = this.productTitle;
+                this.productList[this.productId].description = this.description;
+                this.productList[this.productId].stock = this.stock;
+                this.productList[this.productId].price = this.price;
+                this.productList[this.productId].category = this.category;
+                this.hideFlyout();
+                Object.keys(this.$data).forEach(key => this.$data[key] = null);
+            }
+            this.$store.commit("flyout", false);
+        },
+        hideFlyout() {
+            document.getElementById("flyout").classList.add("animate__fadeOutRight");
+            Object.keys(this.$data).forEach(key => this.$data[key] = null);
+            document.getElementById("flyoutclose").style.display = "none";
+        },
     },
     computed: {
-        filteredList() {
-            return this.products.filter(product => {
-                return product.edges.node.title.toLowerCase().includes(this.search.toLowerCase())
-            })
-        },
-        ...mapGetters(['productList']),
-        ...mapMutations(['addProduct'])
+        ...mapGetters(['productList', 'getFlyout']),
+        ...mapMutations(['addProduct', 'flyout'])
     },
     mounted () {
         document.getElementById("navclose").style.display = "none";
+
+        if (this.edit) {
+            this.productTitle = this.productList[this.productId].title;
+            this.description = this.productList[this.productId].description;
+            this.stock = this.productList[this.productId].stock;
+            this.price = this.productList[this.productId].price;
+            this.category = this.productList[this.productId].category;
+        }
         
         if (window.innerWidth < 600) {
             document.getElementById("navbar").style.display = "none";

@@ -76,7 +76,7 @@
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
                             Total
                         </label>
-                        <span class="text-3xl font-bold">£{{price}}</span>
+                        <span class="text-3xl text-bold">£{{price}}</span>
                     </div>
                 </div>
             </div>

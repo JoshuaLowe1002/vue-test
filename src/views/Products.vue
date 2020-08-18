@@ -1,10 +1,14 @@
 <template>
     <div id="products">
-        <Flyout v-bind:title="title" v-bind:description="description" v-bind:stock="stock" v-bind:price="price" v-bind:category="category" v-bind:currentid="currentId" />
+
+        <Flyout>
+            <QuickView />
+        </Flyout>
+
         <div id="products-container">
             <span class="text-3xl font-bold">{{ $t("message.products") }}</span>
 
-            <button @click="addProductPage()" class="blue-button shadow-md hover:bg-red-500 text-white font-bold py-2 px-8 rounded float-right">
+            <button @click="openFlyout(null, 'create')" class="blue-button shadow-md hover:bg-red-500 text-white font-bold py-2 px-8 rounded float-right">
                 {{ $t("message.new") }}
             </button>
 
@@ -38,7 +42,7 @@
             </tbody>
             </template>
             </sorted-table>
-             <jw-pagination :items="filteredList" :pageSize="pages" @changePage="onChangePage"></jw-pagination>
+            <jw-pagination :items="filteredList" :pageSize="pages" @changePage="onChangePage"></jw-pagination>
         </div>
     </div>
 </template>
@@ -47,6 +51,8 @@
 import {mapGetters, mapMutations} from 'vuex';
 import router from '../router';
 import Flyout from './Flyout';
+import AddProduct from "./AddProduct";
+import QuickView from "./QuickView";
 
 export default {
     name: 'products',
@@ -60,43 +66,35 @@ export default {
             stock: null,
             pageOfItems: [],
             price: null,
-            currentId: "hi",
+            currentId: 0,
             category: null,
-            flyoutShow: false,
-            pages: 5
+            pages: 5,
+            productFlyout: false,
+            edit: false,
         }
     },
     components: {
         Flyout,
+        AddProduct,
+        QuickView
     },
     methods: {
         onChangePage(pageOfItems) {
             // update page of items
             this.pageOfItems = pageOfItems;
         },
-        refresh() {
-            location.reload();
-        },
-        myFunction() {
-            const filter = document.querySelector('#productSearch').value.toUpperCase();
-            const trs = document.querySelectorAll('#productTable tr:not(.header)');
-            trs.forEach(tr => tr.style.display = [...tr.children].find(td => td.innerHTML.toUpperCase().includes(filter)) ? '' : 'none');
-        },
-        addProductPage () {
-            router.push({ name: "addproduct" });
-        },
         openFlyout (id) {
-            this.currentId = this.productList[id-1].id;
-            if (document.getElementById("flyout") !== null){
-                document.getElementById("flyout").style.display = "block";
+
+            this.currentId = id;
+
+            this.$store.commit("flyout", true);
+            
+            if (id) {
+                router.push({ path: "/products/" + id });
             }
-            document.getElementById("flyout").classList.toggle("animate__fadeOutRight");
-            this.title = this.productList[id-1].title;
-            this.description = this.productList[id-1].description;
-            this.stock = this.productList[id-1].stock;
-            this.price = this.productList[id-1].price;
-            this.category = this.productList[id-1].category;
-            document.getElementById("flyoutclose").style.display = "block";
+
+           document.getElementById("flyoutclose").style.display = "block";
+
         },
         stockClass(n) {
             if (n < 10){
@@ -118,19 +116,22 @@ export default {
             })
         },
 
-        ...mapGetters(['productList']),
-        ...mapMutations(['addProduct'])
+        ...mapGetters(['productList', 'getFlyout']),
+        ...mapMutations(['addProduct', 'flyout'])
     },
     mounted () {
         document.getElementById("navclose").style.display = "none";
         
+        this.$store.commit("flyout", false);
+        
+        if (this.$route.params.productId) {
+            this.$store.commit("flyout", true);
+            this.openFlyout(null, "edit");
+        }
+        
         if (window.innerWidth < 600) {
             document.getElementById("navbar").style.display = "none";
         }
-
-        console.log(this.productList[1].id);
-        
-        //this.$store.commit("addProduct", {title: "Test", stock: "5", category: "Test", price: "99"});
     }
 };
 </script>

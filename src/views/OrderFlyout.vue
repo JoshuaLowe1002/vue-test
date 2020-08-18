@@ -69,7 +69,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
         .fc-blue {
             background-color: #0077FF;
         }

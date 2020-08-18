@@ -30,6 +30,10 @@ const mutations = {
         state.income = state.income + payload;
     },
 
+    flyout(state, payload) {
+        state.flyout = payload;
+    },
+
     addOrder(state, payload) {
         state.orders.push(new Order(
             payload.customer,

@@ -15,6 +15,9 @@ const getters = {
     getIncome(state) {
         return state.income;
     },
+    getFlyout(state) {
+        return state.flyout;
+    },
     orderList(state) {
         return state.orders;
     },

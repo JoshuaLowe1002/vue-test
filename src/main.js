@@ -122,11 +122,11 @@ const i18n = new VueI18n({
 
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faArrowAltCircleRight, faCamera, faBarcode, faBars, faCog, faHome, faShoppingCart, faChartLine, faReceipt, faBox, faDollyFlatbed, faSearch, faLifeRing, faBell, faPoundSign } from '@fortawesome/free-solid-svg-icons'
+import { faArrowAltCircleRight, faCamera, faBarcode, faBars, faCog, faHome, faShoppingCart, faChartLine, faReceipt, faBox, faDollyFlatbed, faSearch, faLifeRing, faBell, faPoundSign, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createProvider } from './vue-apollo'
 
-library.add(faArrowAltCircleRight, faCamera, faBarcode, faBars, faHome, faCog, faShoppingCart, faChartLine, faReceipt, faBox, faDollyFlatbed, faSearch, faLifeRing, faBell, faPoundSign);
+library.add(faArrowAltCircleRight, faCamera, faBarcode, faBars, faHome, faCog, faShoppingCart, faChartLine, faReceipt, faBox, faDollyFlatbed, faSearch, faLifeRing, faBell, faPoundSign, faTimes);
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false

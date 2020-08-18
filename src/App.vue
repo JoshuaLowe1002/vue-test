@@ -11,7 +11,8 @@
 <script>
 import Navbar from './views/Navbar.vue';
 import Taskbar from './views/Taskbar.vue';
-import {mapActions} from 'vuex';
+import router from './router';
+import {mapActions, mapMutations, mapGetters} from 'vuex';
 
 export default {
     name: 'app',
@@ -28,10 +29,13 @@ export default {
             document.getElementById("navclose").style.display = "none";
         },
         hideFlyout() {
-            document.getElementById("flyout").classList.add("animate__fadeOutRight");
+            document.getElementById("flyout").style.display = "none";
+            router.push({ path: "/products" });
+            this.$store.commit("flyout", false);
             document.getElementById("flyoutclose").style.display = "none";
         },
-        ...mapActions(["authAction"])
+        ...mapActions(["authAction"]),
+        ...mapMutations(["flyout"])
     }
 };
 </script>
