@@ -1,0 +1,1 @@
+#outPopUp{position:absolute;z-index:15;top:50%;left:50%;margin:-250px 0 0 -60px}.tab{display:none}.blue-text{color:#07f}.step{height:15px;width:15px;margin:0 2px;background-color:#bbb;border:none;border-radius:50%;display:inline-block;opacity:.5}.step.active,.step.finish{background-color:#07f;opacity:1}
