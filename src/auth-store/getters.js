@@ -9,6 +9,9 @@ const getters = {
     getError(state) {
         return state.error;
     },
+    getLoadingStatus(state) {
+        return state.loadingStatus;
+    },
     productList(state) {
         return state.products;
     },

@@ -114,6 +114,14 @@ export default {
     },
     mounted () {
         document.getElementById("navclose").style.display = "none";
+
+        document.getElementById("taskbar").classList.remove("taskbar-smaller");
+
+        if(window.location.search.length > 1){
+            var searchvalue = window.location.search;
+            searchvalue = searchvalue.replace(/\?/g,'')
+            this.search = searchvalue;
+        }
         
         if (window.innerWidth < 600) {
             document.getElementById("navbar").style.display = "none";

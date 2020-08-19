@@ -22,6 +22,14 @@ const mutations = {
         state.user = payload;
     },
 
+    setLoadingStatus(state, payload) {
+        state.loadingStatus = payload
+    },
+
+    addTimeline(state, payload) {
+        state.orders[payload.id].push(payload.message)
+    },
+
     setError(state, payload) {
         state.error = payload;
     },

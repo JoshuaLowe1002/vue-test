@@ -31,9 +31,9 @@
             </thead>
             <template #body="sort">
             <tbody class="rounded-b-lg">
-                <tr class="border" v-for="Product in sort.values" :key="Product.id">
+                <tr @click="openFlyout(Product.id)" :class="{rowactive: rowSelected === Product.id}" class="border cursor-pointer hover:bg-gray-100" id="productrow" v-for="Product in sort.values" :key="Product.id">
                     <td class="px-4 py-4"><input type="checkbox"></td>
-                    <td class="px-4 py-2 blue-text cursor-pointer" @click="openFlyout(Product.id)">#{{Product.id}}</td>
+                    <td class="px-4 py-2 blue-text">#{{Product.id}}</td>
                     <td class="px-4 py-2">{{Product.title}}</td>
                     <td class="px-4 py-2"><span :class="stockClass(Product.stock)">{{Product.stock}}</span></td> 
                     <td class="px-4 py-2">{{Product.category}}</td>
@@ -71,6 +71,7 @@ export default {
             pages: 5,
             productFlyout: false,
             edit: false,
+            rowSelected: null
         }
     },
     components: {
@@ -85,15 +86,19 @@ export default {
         },
         openFlyout (id) {
 
+            this.rowSelected = id;
+
             this.currentId = id;
 
             this.$store.commit("flyout", true);
-            
+
+            document.getElementById("products-container").classList.add("flyout-smaller");
+            document.getElementById("taskbar").classList.add("taskbar-smaller");
+
             if (id) {
                 router.push({ path: "/products/" + id });
             }
 
-           document.getElementById("flyoutclose").style.display = "block";
 
         },
         stockClass(n) {
@@ -106,7 +111,7 @@ export default {
             if (n >= 30){
                 return "green-text";
             }
-        }
+        },
         
     },
     computed: {
@@ -123,6 +128,12 @@ export default {
         document.getElementById("navclose").style.display = "none";
         
         this.$store.commit("flyout", false);
+
+        if(window.location.search.length > 1){
+            var searchvalue = window.location.search;
+            searchvalue = searchvalue.replace(/\?/g,'')
+            this.search = searchvalue;
+        }
         
         if (this.$route.params.productId) {
             this.$store.commit("flyout", true);
@@ -141,6 +152,10 @@ export default {
     background-color: #0077FF;
 }
 
+.rowactive {
+    @apply bg-gray-300;
+}
+
 #products-container {
     padding-top: 90px !important;
     margin-left: 255px;
@@ -153,6 +168,14 @@ export default {
   #products {
       margin-left: 0px;
   }
+}
+
+.flyout-smaller {
+    width: 58.8%;
+}
+
+.taskbar-smaller {
+    width: 73% !important;
 }
 
 .green-text {

@@ -1,12 +1,15 @@
 <template>
-    <div class="h-16 w-full taskbar-col py-10px fixed z-0 border-bottom-task">
+<div id="uppertaskbar">
+    <div class="h-16 w-full taskbar-col py-10px fixed z-0 border-bottom-task" id="taskbar">
         <div class="inline-block text-2xl mx-2 float-left" id="menu" @click="showNav()">
           <font-awesome-icon icon="bars" />
         </div>
         <div class="float-left search" v-if="isUserAuth">
           <div class="relative mx-auto text-black">
+          
           <input class="h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none s-width"
-            type="search" name="search" placeholder="Search">
+            type="search" name="search" placeholder="Search" v-model="search" id="globalsearch">
+          
           <button type="submit" class="absolute right-0 top-0 mt-2 mr-3">
             <font-awesome-icon class="fs-4 text-black fill-current" icon="search" />
           </button>
@@ -29,19 +32,49 @@
         </div>
 
     </div>
+
+    <div class="searchbox shadow-2xl hidden" id="searchdropdown">
+      <div id="productsearch">
+        <span class="text-2xl">Products    </span> <span @click="showAll('products')" class="blue-text text-md cursor-pointer">Show All ({{productsFilteredList.length}})</span>
+        <div v-for="Product in productsFilteredList.slice(0,3)" :key="Product.title" style="height: 20px">
+         <span @click="productManage(Product.id)" class="cursor-pointer">{{Product.title}}</span>
+        </div>
+      </div>
+
+      <div id="productsearch" class="mt-8">
+        <span class="text-2xl">Orders    </span> <span @click="showAll('orders')" class="blue-text text-md cursor-pointer">Show All ({{ordersFilteredList.length}})</span>
+        <div v-for="Order in ordersFilteredList.slice(0,3)" :key="Order.title" style="height: 20px">
+          <span>#{{Order.id}} - {{Order.customer}}</span>
+        </div>
+      </div>
+
+    </div>
+</div>
 </template>
 
 <script>
 import {mapGetters} from 'vuex';
 import firebase from 'firebase';
+import router from '../router';
 
 export default {
   computed: {
-    ...mapGetters(['getUser', 'isUserAuth'])
+      productsFilteredList() {
+        return this.productList.filter(product => {
+            return product.title.toLowerCase().includes(this.search.toLowerCase())
+        })
+      },
+      ordersFilteredList() {
+        return this.orderList.filter(order => {
+            return order.customer.toLowerCase().includes(this.search.toLowerCase())
+        })
+      },
+    ...mapGetters(['getUser', 'isUserAuth', 'productList', 'orderList'])
   },
   data () {
     return {
-      firstTwo: ''
+      firstTwo: '',
+      search: ''
     }
   },
   mounted () {
@@ -52,34 +85,46 @@ export default {
       initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
       this.firstTwo = initials;
     }
+
+    document.addEventListener("click", (evt) => {
+      const flyoutElement = document.getElementById("globalsearch");
+      let targetElement = evt.target; // clicked element
+
+      do {
+          if (targetElement == flyoutElement) {
+              // This is a click inside. Do nothing, just return.
+              document.getElementById("searchdropdown").style.display = "block";
+              return;
+          }
+          // Go up the DOM
+          targetElement = targetElement.parentNode;
+      } while (targetElement);
+
+      // This is a click outside.
+      document.getElementById("searchdropdown").style.display = "none";
+    });
   },
   methods: {
     showNav() {
       document.getElementById("navbar").style.display = "block";
       document.getElementById("navclose").style.display = "block";
     },
-    myFunction() {
-      // Declare variables
-      var input, filter, table, tr, td, i, txtValue;
-      input = document.getElementById("myInput");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("myTable");
-      tr = table.getElementsByTagName("tr");
-
-      // Loop through all table rows, and hide those who don't match the search query
-      for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
-        if (td) {
-          txtValue = td.textContent || td.innerText;
-          if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-            tr[i].style.display = "none";
-          }
-        }
+    productManage(id, mode) {
+      if (mode === "products"){
+        router.push({ path: '/products/' + id + '/manage' });
+      }
+      if (mode === "orders"){
+        router.push({ path: '/orders/' + id + '/manage' });
+      }
+    },
+    showAll(mode) {
+      if (mode === "products"){
+        router.push({ path: '/products/?' + this.search });
+      }
+      if (mode === "orders"){
+        router.push({ path: '/orders/?' + this.search });
       }
     }
-
   }
 };
 </script>
@@ -98,6 +143,16 @@ export default {
 
 .w-170 {
   width: 170px;
+}
+
+.searchbox {
+  margin-left: 278px;
+  margin-top: 55px;
+  background-color: white;
+  z-index: 1000;
+  position:absolute;
+  width: 346px;
+  padding: 20px;
 }
 
 .py-10px {

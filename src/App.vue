@@ -21,7 +21,7 @@ export default {
         Taskbar
     },
     mounted() {
-        this.authAction();
+        this.authAction(); 
     },
     methods: {
         hideNav() {
@@ -32,6 +32,7 @@ export default {
             document.getElementById("flyout").style.display = "none";
             router.push({ path: "/products" });
             this.$store.commit("flyout", false);
+            document.getElementById("products-container").classList.toggle("flyout-smaller");
             document.getElementById("flyoutclose").style.display = "none";
         },
         ...mapActions(["authAction"]),

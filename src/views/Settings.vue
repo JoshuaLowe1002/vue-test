@@ -43,6 +43,7 @@ export default {
     mounted() {
         document.getElementById("text-field").value = localStorage.getItem("option");
         document.getElementById("navclose").style.display = "none";
+        document.getElementById("taskbar").classList.remove("taskbar-smaller");
         if (window.innerWidth < 600) {
             document.getElementById("navbar").style.display = "none";
         }

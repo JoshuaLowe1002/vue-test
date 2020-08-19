@@ -40,6 +40,15 @@ export default {
             id: null,
         }
     },
+    watch: {
+        $route() {
+           this.title = this.productList[this.$route.params.productId-1].title;
+           this.description = this.productList[this.$route.params.productId-1].description;
+           this.price = this.productList[this.$route.params.productId-1].price;
+           this.category = this.productList[this.$route.params.productId-1].category;
+           this.stock = this.productList[this.$route.params.productId-1].stock;
+        }
+    },
     mounted () {
        this.id = this.$route.params.productId;
 

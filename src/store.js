@@ -7,17 +7,18 @@ import getters from "./auth-store/getters";
 Vue.use(Vuex);
 
 class Product {
-    constructor(title, description, stock, price, category) {
+    constructor(title, description, stock, price, category, timeline) {
         this.title = title;
         this.description = description;
         this.stock = stock;
         this.price = price;
         this.category = category;
+        this.timeline = timeline;
     }
 }
 
 class Order {
-    constructor(customer, products, status, price, timeline) {
+    constructor(customer, products, status, price) {
         this.customer = customer;
         this.products = products;
         this.status = status;
@@ -32,101 +33,133 @@ const initialState = () => {
             ['iPhone 11 Pro'],
             'Paid',
             '1499'
-        )
+        ),
+        new Order (
+            'Joe Bloggs',
+            ['Water Bottle'],
+            'Awaiting Payment',
+            '5.99'
+        ),
+        new Order (
+            'John Appleseed',
+            ['Coca-Cola'],
+            'Shipped',
+            '1.20'
+        ),
+        new Order (
+            'Joe Bloggs',
+            ['Galaxy S20 Ultra'],
+            'Paid',
+            '1299'
+        ),
     ]
     var income = 1499;
     var flyout = "create";
+    var loadingStatus = false;
     var products = [
         new Product(
             'iPhone 11 Pro',
             'A transformative triple‑camera system that adds tons of capability without complexity. An unprecedent­ed leap in battery life. And a mind‑blowing chip that elevates machine learning and pushes the boundaries of what a smartphone can do. Welcome to the first iPhone powerful enough to be called Pro.',
             '4',
             '1499',
-            'Apple'
+            'Apple',
+            []
         ),
         new Product(
             'Galaxy S20 Ultra',
             'Meet S20 Ultra. With revolutionary 8K Video Snap changing how you capture not just video but photography — and 5G changing the way you share it. Add in Samsung Knox security, an intelligent battery, powerful processor and massive storage — and the Galaxy S20 Ultra unveils a whole new world for mobile.',
             '10',
             '1299',
-            'Android'
+            'Android',
+            []
         ),
         new Product(
             'Water Bottle',
             'Bottle of water',
             '15',
             '5.99',
-            'Misc'
+            'Misc',
+            []
         ),
         new Product(
             'Coca-Cola',
             'Bottle of Coke',
             '63',
             '1.20',
-            'Misc'
+            'Misc',
+            []
         ),
         new Product(
             'Headphones',
             'Really cool headphones',
             '30',
             '130',
-            'Tech'
+            'Tech',
+            []
         ),
         new Product(
             'Mechanical Keyboard',
             'MX Blue Switches',
             '12',
             '50',
-            'Tech'
+            'Tech',
+            []
         ),
         new Product(
             'Desk Lamp',
             'Adjustable brightness desk lamp',
             '4',
             '23',
-            'Home'
+            'Home',
+            []
         ),
         new Product(
             'Amazon Echo',
             'A smart home assisstant',
             '39',
             '65',
-            'Tech'
+            'Tech',
+            []
         ),
         new Product(
             'Gaming Monitor',
             'Perfect for advanced gamers',
             '2',
             '5',
-            'Tech'
+            'Tech',
+            []
         ),
         new Product(
             '512GB SSD',
             'Super fast Samsung SSD',
             '78',
             '45',
-            'Tech'
+            'Tech',
+            []
         ),
         new Product(
             '2TB HDD',
             'Perfect for game storage or NAS use',
             '22',
             '95',
-            'Tech'
+            'Tech',
+            []
         ),
         new Product(
             'Desk',
             'Great for a home office',
             '3',
             '78',
-            'Home'
+            'Home',
+            []
         ),
         new Product(
             'Gaming PC',
             'Prebuilt Gaming PC',
             '1',
             '4555',
-            'Tech'
+            'Tech',
+            []
         ),
     ];
     
@@ -137,7 +170,7 @@ const initialState = () => {
     orders.forEach((item, i) => {
         item.id = i + 1;
       });
-    return { user: null, error: null, products, orders, income, flyout };
+    return { user: null, error: null, products, orders, income, flyout, loadingStatus };
 };
 
 export default new Vuex.Store({

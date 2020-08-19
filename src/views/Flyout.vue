@@ -47,7 +47,7 @@ export default {
     #flyout {
         right: 0;
         top: 0;
-        width: 600px;
+        width: 530px;
         z-index: 1000;
         background-color: #F1F4F8;
     }            

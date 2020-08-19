@@ -53,6 +53,15 @@ export default {
         Details,
         Timeline
     },
+    watch: {
+        $route() {
+           this.title = this.productList[this.$route.params.productId-1].title;
+           this.description = this.productList[this.$route.params.productId-1].description;
+           this.price = this.productList[this.$route.params.productId-1].price;
+           this.category = this.productList[this.$route.params.productId-1].category;
+           this.stock = this.productList[this.$route.params.productId-1].stock;
+        }
+    },
     mounted () {
        this.id = this.$route.params.productId;
 
@@ -81,6 +90,8 @@ export default {
             router.push({ path: '/products/' + this.id + '/manage' });
         },
         hideFlyout() {
+            document.getElementById("products-container").classList.remove("flyout-smaller");
+            document.getElementById("taskbar").classList.remove("taskbar-smaller");
             document.getElementById("flyout").style.display = "none";
             router.push({ path: "/products" });
             this.$store.commit("flyout", false);
@@ -101,11 +112,12 @@ export default {
     flex-direction: column;
 }
 #quick-bar {
-    height: 50px;
+    height: 64px;
     padding: 14px;
     color: #999999;
     background-color: white;
     border-bottom: #DDDDDD solid 1px;
+    padding-top: 20px;
 }
 
 #stock {

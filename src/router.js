@@ -1,14 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-const Scanner = () => import('./views/Scanner.vue')
-const Home = () => import('./views/Home.vue')
-const Settings = () => import('./views/Settings.vue')
-const Products = () => import('./views/Products.vue')
-const Orders = () => import('./views/Orders.vue')
-const AddOrder = () => import('./views/AddOrder.vue')
-const EditProduct = () => import('./views/EditProduct.vue')
-const Login = () => import('./components/Login.vue')
-const Register = () => import('./components/Register.vue')
+import Scanner from './views/Scanner.vue'
+import Home from './views/Home.vue'
+import Settings from './views/Settings.vue'
+import Products from './views/Products.vue'
+import Orders from './views/Orders.vue'
+import AddOrder from './views/AddOrder.vue'
+import EditProduct from './views/EditProduct.vue'
+import Login from './components/Login.vue'
+import Hello from './components/helloworld.vue'
+import Register from './components/Register.vue'
 import firebase from "firebase/app";
 import "firebase/auth";
 
@@ -27,6 +28,14 @@ const routes = [{
         path: '/scan',
         name: 'scan',
         component: Scanner,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/hello',
+        name: 'hello',
+        component: Hello,
         meta: {
             requiresAuth: true
         }
