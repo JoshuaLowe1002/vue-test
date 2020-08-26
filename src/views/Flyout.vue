@@ -32,7 +32,7 @@ export default {
       }
   },
   computed: {
-    ...mapGetters(["isUserAuth", "productList", "getFlyout"])
+       ...mapGetters(["isUserAuth", "productList", "getFlyout"])
   },
 };
 </script>
